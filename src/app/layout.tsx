@@ -37,10 +37,7 @@ export default function RootLayout({
       >
         <MySessionProvider>
           
-              
-              <Toaster/>
-            
-              <Navbar />
+   
               {children}
      
         </MySessionProvider>

@@ -268,7 +268,13 @@ export default function FreelancerForm() {
                 <Sparkles className="w-6 h-6 text-purple-600" />
                 <p className="font-semibold text-purple-700">Create with AI</p>
                 <p className="text-sm text-gray-500">ATS‑optimized in minutes</p>
-                <Button className="bg-purple-600 hover:bg-purple-700 w-full">Build My CV</Button>
+              <Button 
+                  className="bg-purple-600 hover:bg-purple-700 w-full"
+                  onClick={() => router.push('/makecv')}
+                >
+                  Build My CV
+                </Button>
+
               </div>
             </div>
 
