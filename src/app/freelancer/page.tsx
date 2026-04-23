@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   Search,
@@ -22,13 +23,24 @@ import {
   Clock,
   DollarSign,
   BarChart3,
-   ThumbsUp  ,
+   ThumbsUp,  
+   Router,
+   Edit,
 
 } from "lucide-react";
 
 export default function FreelancerProfilePublic() {
   const [portfolioTab, setPortfolioTab] = useState<"gigs" | "projects">("gigs");
-
+  
+    const [showReportModal, setShowReportModal] = useState(false);
+    const [reportReason, setReportReason] = useState("");
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const router = useRouter();
+  const handleSubmitReport = () => {
+    setShowReportModal(false);
+    setReportReason("");
+    setShowSuccessModal(true);
+  };
   return (
     <main className="bg-[#F9FAFB] min-h-screen">
       {/* ================= NAVBAR ================= */}
@@ -78,75 +90,81 @@ export default function FreelancerProfilePublic() {
           </div>
         </div>
       </section>
+{/* ================= HEADER ================= */}
+<section className="bg-white pt-28 pb-10">
+  <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-[1fr_360px] gap-12">
 
-      {/* ================= HEADER ================= */}
-      <section className="bg-white pt-28 pb-10">
-        <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-[1fr_360px] gap-12 ">
-          <div className="items-start">
-            <h1 className="text-[32px] font-bold text-[#1F2937]">
-              Mostafa Ahmed
-            </h1>
-            <p className="text-gray-500 mt-1">Full Stack Developer</p>
+    {/* LEFT SIDE */}
+    <div className="items-start">
+      <h1 className="text-[32px] font-bold text-[#1F2937]">
+        Mostafa Ahmed
+      </h1>
+      <p className="text-gray-500 mt-1">Full Stack Developer</p>
 
-            <div className="flex items-start gap-6 mt-3 text-sm text-gray-500">
-              <span className="flex items-center gap-1">
-                <MapPin className="w-4 h-4" /> Cairo, Egypt
-              </span>
-              <span className="flex items-center gap-1">
-                <Globe className="w-4 h-4" /> English, Arabic
-              </span>
-            </div>
+      <div className="flex gap-6 mt-3 text-sm text-gray-500">
+        <span className="flex items-center gap-1">
+          <MapPin className="w-4 h-4" /> Cairo, Egypt
+        </span>
+        <span className="flex items-center gap-1">
+          <Globe className="w-4 h-4" /> English, Arabic
+        </span>
+      </div>
 
-            <div className="flex items-start items-center gap-6 mt-5">
-              <div className="flex items-center gap-2">
-                <span className="flex items-center gap-1 px-3 py-1 text-xs rounded-full bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white">
-                  <ShieldCheck className="w-4 h-4" /> AI Verified
-                </span>
+      <div className="flex items-center gap-6 mt-5">
+        <span className="flex items-center gap-1 px-3 py-1 text-xs rounded-full bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white">
+          <ShieldCheck className="w-4 h-4" /> AI Verified
+        </span>
 
-                <span className="flex items-center gap-1 text-[#F59E0B] font-medium">
-                  4.8 <Star className="w-4 h-4 fill-[#F59E0B]" />
-                </span>
+        <span className="flex items-center gap-1 text-[#F59E0B] font-medium">
+          4.8 <Star className="w-4 h-4 fill-[#F59E0B]" />
+        </span>
 
-                <span className="text-[#8B5CF6] text-sm">96%</span>
-              </div>
+        <span className="text-[#8B5CF6] text-sm">96%</span>
 
-              <div className="w-px h-6 bg-gray-300" />
+        <div className="w-px h-6 bg-gray-300" />
 
-              <div className="flex items-center gap-1 text-[#F59E0B]">
-                4.9 <Star className="w-4 h-4 fill-[#F59E0B]" />
-                <span className="text-gray-500 text-sm ml-1">
-                  127 reviews
-                </span>
-              </div>
-            </div>
+        <span className="flex items-center gap-1 text-[#F59E0B]">
+          4.9 <Star className="w-4 h-4 fill-[#F59E0B]" />
+          <span className="text-gray-500 text-sm ml-1">127 reviews</span>
+        </span>
+      </div>
+    </div>
+
+    {/* RIGHT SIDE */}
+    <div className="space-y-4">
+
+      <button
+        onClick={() => router.push("/freelancer/edit")}
+className="w-full h-[48px] bg-gradient-to-r from-[#8B5CF6] to-[#6366F1] text-white rounded-xl flex items-center justify-center gap-2"      >
+        <Edit className="w-4 h-4" />
+        Edit Profile
+      </button>
+
+      <p className="text-2xl font-bold text-[#8B5CF6]">From $45/hr</p>
+      <p className="text-sm text-gray-500">Responds in 2 hours</p>
+
+      <button className="w-full h-[48px] bg-gradient-to-r from-[#8B5CF6] to-[#6366F1] text-white rounded-xl flex items-center justify-center gap-2">
+        <MessageSquare className="w-4 h-4" /> Contact Me
+      </button>
+
+      <button className="w-full h-[48px] border-2 border-[#8B5CF6] text-[#8B5CF6] rounded-xl flex items-center justify-center gap-2">
+        <Briefcase className="w-4 h-4" /> Hire Now
+      </button>
+
+      <div className="flex gap-3 justify-center">
+        {[Heart, Share2, Flag].map((Icon, i) => (
+          <div
+            key={i}
+            className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center"
+          >
+            <Icon className="w-4 h-4 text-gray-600" />
           </div>
+        ))}
+      </div>
+    </div>
 
-          <div className="space-y-4">
-            <p className="text-2xl font-bold text-[#8B5CF6]">From $45/hr</p>
-            <p className="text-sm text-gray-500">Responds in 2 hours</p>
-
-            <button className="w-full h-[48px] bg-gradient-to-r from-[#8B5CF6] to-[#6366F1] text-white rounded-xl flex items-center justify-center gap-2">
-              <MessageSquare className="w-4 h-4" /> Contact Me
-            </button>
-
-            <button className="w-full h-[48px] border-2 border-[#8B5CF6] text-[#8B5CF6] rounded-xl flex items-center justify-center gap-2">
-              <Briefcase className="w-4 h-4" /> Hire Now
-            </button>
-
-            <div className="flex gap-3 justify-center">
-              {[Heart, Share2, Flag].map((Icon, i) => (
-                <div
-                  key={i}
-                  className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center"
-                >
-                  <Icon className="w-4 h-4 text-gray-600" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
+  </div>
+</section>
       {/* ================= MAIN ================= */}
       <section className="max-w-[1200px] mx-auto px-6 py-12 grid grid-cols-[840px_360px] gap-8 relative">
         {/* ================= LEFT ================= */}
@@ -565,7 +583,12 @@ export default function FreelancerProfilePublic() {
   <span>Report this profile</span>
 </Widget>
 
-
+  <button
+                onClick={handleSubmitReport}
+                className="rounded-2xl bg-red-500 px-6 py-3 font-semibold text-white hover:bg-red-600"
+              >
+                Report
+              </button>
 
 
 
