@@ -87,8 +87,9 @@ export default function ProposalsPage() {
   ];
 
   return (
-<main className="min-h-screen bg-[#f5f6f8]">
-        <SecoundNavbar />
+
+    <main className="min-h-screen bg-[#f5f6f8]">
+      <SecoundNavbar />
 
       <section className="mx-auto max-w-[1500px] px-4 py-10 md:px-8">
         <div className="mb-8 flex items-center gap-3 text-[18px] text-slate-500">

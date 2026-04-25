@@ -13,7 +13,8 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-export default function SecoundNavbar() {
+
+export default function Navbar() {
   const [search, setSearch] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
 

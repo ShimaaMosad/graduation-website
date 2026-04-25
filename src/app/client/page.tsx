@@ -290,7 +290,7 @@ export default function ClientPage() {
       <main className="min-h-screen bg-[#f5f6f8]">
         <SecoundNavbar />
 
-        <section className="border-b border-slate-200 pt-20 bg-slate-100">
+        <section className="border-b border-slate-200 bg-slate-100">
           <div className="mx-auto flex max-w-[1400px] flex-col gap-4 px-4 py-6 md:flex-row md:items-center md:justify-between md:px-8">
             <div className="flex items-center gap-3 text-[18px] font-semibold text-slate-900">
               <Pencil className="h-6 w-6 text-blue-500" />
@@ -452,7 +452,10 @@ export default function ClientPage() {
     <main className="min-h-screen bg-[#f5f6f8]">
       <SecoundNavbar />
 
-      <section className="border-b pt-20 border-slate-200 bg-white">
+
+<section className="border-b pt-20 border-slate-200 bg-white"/>
+      <section className="border-b border-slate-200 bg-white">
+
         <div className="mx-auto max-w-[1500px] px-4 py-10 md:px-8">
           <div className="grid gap-8 lg:grid-cols-[1fr_300px]">
             <div className="flex flex-col items-center text-center">

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Toaster } from "@/components/ui/sonner";
 import Navbar from "../_components/Navbar/Navbar";
 import MySessionProvider from "../MySessionProvider/MySessionProvider";
