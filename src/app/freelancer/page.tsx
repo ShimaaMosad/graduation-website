@@ -28,6 +28,7 @@ import {
    Edit,
 
 } from "lucide-react";
+import FreelancerNavbar from "@/src/_components/FreelancerNavbar/FreelancerNavbar";
 
 export default function FreelancerProfilePublic() {
   const [portfolioTab, setPortfolioTab] = useState<"gigs" | "projects">("gigs");
@@ -44,36 +45,7 @@ export default function FreelancerProfilePublic() {
   return (
     <main className="bg-[#F9FAFB] min-h-screen">
       {/* ================= NAVBAR ================= */}
-<nav className="fixed top-0 left-0 w-full h-[80px] bg-white shadow-sm flex items-center z-50">
-        <div className="max-w-[1200px] mx-auto w-full flex items-center justify-between px-6">
-          <div className="text-xl font-bold text-[#8B5CF6]">MySite</div>
-
-          <div className="relative w-[400px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <input
-              placeholder="Search freelancers, skills..."
-              className="w-full h-[44px] pl-10 pr-4 rounded-xl border border-[#E5E7EB] text-sm focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]"
-            />
-          </div>
-
-          <div className="flex items-center gap-4">
-            <MessageSquare className="w-5 h-5 text-gray-600" />
-            <div className="relative">
-              <Bell className="w-5 h-5 text-gray-600" />
-              <span className="absolute -top-1 -right-1 w-4 h-4 text-[10px] bg-red-500 text-white rounded-full flex items-center justify-center">
-                3
-              </span>
-            </div>
-            <Image
-                src="/images/profile.jfif" 
-              alt="User"
-              width={36}
-              height={36}
-              className="rounded-full"
-            />
-          </div>
-        </div>
-      </nav>
+<FreelancerNavbar/>
 
       {/* ================= COVER ================= */}
       <section className="h-[280px] bg-gradient-to-r from-[#8B5CF6] to-[#6366F1] relative">

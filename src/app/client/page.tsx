@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import SecoundNavbar from "@/src/_components/SecoundNavbar/SecoundNavbar";
 
 import {
 
@@ -21,6 +20,7 @@ import {
   MessageSquare,
   AlertTriangle,
 } from "lucide-react";
+import ClientNavbar from "@/src/_components/ClientNavbar/ClientNavbar";
 
 type ClientProfile = {
   fullName: string;
@@ -288,8 +288,7 @@ export default function ClientPage() {
   if (isEditing) {
     return (
       <main className="min-h-screen bg-[#f5f6f8]">
-        <SecoundNavbar />
-
+<ClientNavbar/>
         <section className="border-b border-slate-200 bg-slate-100">
           <div className="mx-auto flex max-w-[1400px] flex-col gap-4 px-4 py-6 md:flex-row md:items-center md:justify-between md:px-8">
             <div className="flex items-center gap-3 text-[18px] font-semibold text-slate-900">
@@ -450,9 +449,8 @@ export default function ClientPage() {
 
   return (
     <main className="min-h-screen bg-[#f5f6f8]">
-      <SecoundNavbar />
 
-
+<ClientNavbar/>
 <section className="border-b pt-20 border-slate-200 bg-white"/>
       <section className="border-b border-slate-200 bg-white">
 
