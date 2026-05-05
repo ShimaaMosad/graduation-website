@@ -28,8 +28,6 @@ import {
 
 import Image from "next/image";
 import Link from "next/link";
-import Navigation from "@/src/_components/Navigation/Navigation";
-import SecoundNavbar from "@/src/_components/SecoundNavbar/SecoundNavbar";
 
 /* ================= TYPES ================= */
 
@@ -203,7 +201,6 @@ useEffect(() => {
   return (
 
     <div className="bg-[#F9FAFB] min-h-screen">
-<SecoundNavbar/>
 
       {/* ================= HEADER ================= */}
         <div className="pt-[80px]">
@@ -231,7 +228,6 @@ useEffect(() => {
       
       {/* ================= MAIN ================= */}
       <div className="w-full flex justify-center py-10">
-               <Navigation/>
        
         <div className="w-[1200px] flex gap-6">
 

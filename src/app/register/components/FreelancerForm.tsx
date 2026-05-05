@@ -7,8 +7,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../../../components/ui/button";
 import {
   Form,
   FormField,
@@ -16,14 +15,15 @@ import {
   FormControl,
   FormMessage,
   FormLabel,
-} from "@/components/ui/form";
+} from "../../../../components/ui/form";
 
 import { FaUser, FaLinkedin } from "react-icons/fa";
 import { MdEmail, MdLock, MdUpload } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import { Eye, EyeOff, Sparkles } from "lucide-react";
-import { registerSchema, registerSchemaType } from "@/src/schema/register.scheme";
 import { signIn } from "next-auth/react";
+import { Input } from "../../../../components/ui/input";
+import { registerSchema, registerSchemaType } from "../../../schema/register.scheme";
 
 export default function FreelancerForm() {
   const router = useRouter();

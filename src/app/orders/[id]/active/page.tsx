@@ -18,7 +18,7 @@ import {
   User,
   Wallet,
 } from "lucide-react";
-import { acceptDelivery, extendDeadline, raiseDispute } from "@/src/lib/orders-api";
+import { acceptDelivery, extendDeadline,raiseDispute } from "../../../../lib/orders-api";
 
 type ActionMessage = {
   type: "success" | "info" | "error";

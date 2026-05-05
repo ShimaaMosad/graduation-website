@@ -20,7 +20,7 @@ import {
   UploadCloud,
 } from "lucide-react";
 import { useParams } from "next/navigation";
-import { getOrderById, OrderDetails } from "@/src/lib/orders-api";
+import { OrderDetails , getOrderById } from "../../../lib/orders-api";
 
 function Sidebar() {
   return (

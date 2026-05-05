@@ -17,7 +17,7 @@ import {
   Settings,
   ShoppingCart,
 } from "lucide-react";
-import { getOrders, Order, OrderStatus } from "@/src/lib/orders-api";
+import { getOrders, Order, OrderStatus,  } from "../../lib/orders-api";
 
 const tabs = ["All Orders", "Active", "Late", "Delivered", "Completed", "Cancelled"];
 

@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { FaLinkedin, FaUser } from "react-icons/fa";
 import { MdEmail, MdLock, MdUpload } from "react-icons/md";
 import { useForm } from "react-hook-form";
@@ -10,9 +8,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { registerSchema, registerSchemaType } from "@/src/schema/register.scheme";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
+import { registerSchema, registerSchemaType } from "../../../schema/register.scheme";
+import { Input } from "../../../../components/ui/input";
+import { Button } from "../../../../components/ui/button";
 
 export default function ClientRegisterStyled() {
   const router = useRouter();

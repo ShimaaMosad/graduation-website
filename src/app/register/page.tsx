@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import ClientForm from "./components/ClientForm";
 import FreelancerForm from "./components/FreelancerForm";
+import { Button } from "../../../components/ui/button";
 
 export default function RegisterPage() {
   const searchParams = useSearchParams();
@@ -40,8 +40,7 @@ export default function RegisterPage() {
             }`}
         >
           I'm a Client
-        </Button>
-
+</Button>
         <Button
           onClick={() => setMode("freelancer")}
           className={`flex-1 h-14 text-lg font-semibold rounded-xl
