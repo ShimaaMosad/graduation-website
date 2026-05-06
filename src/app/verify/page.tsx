@@ -14,7 +14,7 @@ import {
   saveVerifyDraft,
   submitVerify,
   VerifyData,
-} from "@/src/lib/verifyApi";
+} from"../../lib/verifyApi";
 
 const countries = ["Egypt", "United States", "United Kingdom", "Germany", "France"];
 

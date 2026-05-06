@@ -293,113 +293,116 @@ export default function DashboardPage() {
       {/* Toast */}
       {toast && <Toast msg={toast.msg} isError={toast.isError} />}
 
-      {/* ── Sidebar ────────────────────────────────────────────── */}
-      <aside className="w-44 bg-[#1a1d2e] flex flex-col py-4 px-3 flex-shrink-0">
-        <div className="flex items-center gap-2 mb-8 px-1">
-          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">S</div>
-          <div>
-            <div className="text-white font-bold text-sm leading-tight">MySite</div>
-            <div className="text-gray-400 text-[9px] uppercase tracking-wider">Admin Console</div>
-          </div>
-        </div>
-        <nav className="flex-1 space-y-1">
-          {NAV.map(({ label, icon: Icon }) => (
-            <button
-  key={label}
-  onClick={() => {
-    setActiveNav(label);
-    router.push(`/${label.toLowerCase().replace(" ", "")}`);
-    showToast(`Navigated to ${label}`);
-  }}
-              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-all ${activeNav === label ? "bg-indigo-600 text-white" : "text-gray-400 hover:bg-white/10 hover:text-white"}`}>
-              <Icon size={14} />{label}
-            </button>
-          ))}
-        </nav>
-        <div className="mt-4 border border-gray-600 rounded-lg p-3">
-          <div className="text-gray-400 text-[10px] mb-1">Current Tier</div>
-          <div className="text-white text-xs font-semibold mb-2">Enterprise Admin</div>
-          <button onClick={() => setShowUpgrade(true)} className="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs py-1.5 rounded-md transition-colors">
-            Upgrade Plan
-          </button>
-        </div>
-        <div className="mt-4 space-y-1">
-          <button onClick={() => showToast("Opening Help Center…")}
-            className="w-full flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white text-xs rounded-lg hover:bg-white/10 transition-colors">
-            <HelpCircle size={13} />Help Center
-          </button>
-          <button onClick={() => showToast("Logging out…")}
-            className="w-full flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white text-xs rounded-lg hover:bg-white/10 transition-colors">
-            <LogOut size={13} />Logout
-          </button>
-        </div>
-      </aside>
-
+    
       {/* ── Main ───────────────────────────────────────────────── */}
       <main className="flex-1 overflow-y-auto">
+<div className="sticky top-0 z-10 w-full bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
 
-        {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between z-10">
-          <h1 className="text-xl font-bold text-gray-800">Dashboard Overview</h1>
-          <div className="flex items-center gap-3">
-            {/* Search */}
-            <div className="relative">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                value={searchQuery}
-                onChange={(e) => { setSearchQuery(e.target.value); setShowAllUsers(true); }}
-                onKeyDown={(e) => e.key === "Escape" && setSearchQuery("")}
-                className="pl-8 pr-8 py-1.5 text-sm border border-gray-200 rounded-lg bg-gray-50 w-44 focus:outline-none focus:ring-2 focus:ring-indigo-300"
-                placeholder="Search records…"
-              />
-              {searchQuery && (
-                <button onClick={() => { setSearchQuery(""); setShowAllUsers(false); }} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                  <X size={12} />
-                </button>
-              )}
-            </div>
+  {/* LEFT SIDE */}
+  <div className="flex items-center gap-3">
+    
+    {/* Search */}
+    <div className="relative">
+      <Search
+        size={14}
+        className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+      />
 
-            {/* Calendar */}
-            <button onClick={(e) => { e.stopPropagation(); setShowCalendar(true); }}
-              className={`p-2 rounded-lg transition-colors ${dateRange ? "bg-indigo-100 text-indigo-600" : "text-gray-500 hover:bg-gray-100"}`}
-              title={dateRange ? `${dateRange.from} → ${dateRange.to}` : "Filter by date"}>
-              <Calendar size={16} />
-            </button>
-            {dateRange && (
-              <button onClick={() => { setDateRange(null); showToast("Date filter cleared"); }} className="text-[10px] text-indigo-600 hover:underline -ml-2">clear</button>
-            )}
+      <input
+        value={searchQuery}
+        onChange={(e) => {
+          setSearchQuery(e.target.value);
+          setShowAllUsers(true);
+        }}
+        onKeyDown={(e) => e.key === "Escape" && setSearchQuery("")}
+        className="pl-8 pr-8 py-1.5 text-sm border border-gray-200 rounded-lg bg-gray-50 w-44 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+        placeholder="Search records…"
+      />
 
-            {/* Bell */}
-            <div className="relative">
-              <button onClick={(e) => { e.stopPropagation(); setShowBell((b) => !b); }} className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg relative">
-                <Bell size={16} />
-                {data && data.newFlaggedCount > 0 && (
-                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-                )}
-              </button>
-              {showBell && <NotifPanel onClose={() => setShowBell(false)} />}
-            </div>
+      {searchQuery && (
+        <button
+          onClick={() => {
+            setSearchQuery("");
+            setShowAllUsers(false);
+          }}
+          className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+        >
+          <X size={12} />
+        </button>
+      )}
+    </div>
+  </div>
 
-            {/* Refresh */}
-            <button onClick={() => fetchData(true)} disabled={refreshing} className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg disabled:opacity-50" title="Refresh data">
-              <RefreshCw size={16} className={refreshing ? "animate-spin" : ""} />
-            </button>
+  {/* RIGHT SIDE */}
+  <div className="flex items-center gap-3">
 
-            {/* Settings */}
-            <button onClick={() => showToast("Settings panel coming soon")} className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg">
-              <Settings size={16} />
-            </button>
+    {/* Calendar */}
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        setShowCalendar(true);
+      }}
+      className={`p-2 rounded-lg transition-colors ${
+        dateRange
+          ? "bg-indigo-100 text-indigo-600"
+          : "text-gray-500 hover:bg-gray-100"
+      }`}
+      title={
+        dateRange
+          ? `${dateRange.from} → ${dateRange.to}`
+          : "Filter by date"
+      }
+    >
+      <Calendar size={16} />
+    </button>
 
-            {/* Admin user */}
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => showToast("Profile settings coming soon")}>
-              <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white text-xs font-bold hover:bg-indigo-700 transition-colors">AU</div>
-              <div className="text-right">
-                <div className="text-xs font-semibold text-gray-700">Admin User</div>
-                <div className="text-[10px] text-gray-400">Super Administrator</div>
-              </div>
-            </div>
-          </div>
-        </div>
+    {dateRange && (
+      <button
+        onClick={() => {
+          setDateRange(null);
+          showToast("Date filter cleared");
+        }}
+        className="text-[10px] text-indigo-600 hover:underline -ml-2"
+      >
+        clear
+      </button>
+    )}
+
+    {/* Bell */}
+    <div className="relative">
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setShowBell((b) => !b);
+        }}
+        className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg relative"
+      >
+        <Bell size={16} />
+
+        {data && data.newFlaggedCount > 0 && (
+          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+        )}
+      </button>
+
+      {showBell && (
+        <NotifPanel onClose={() => setShowBell(false)} />
+      )}
+    </div>
+
+    {/* Refresh */}
+    <button
+      onClick={() => fetchData(true)}
+      disabled={refreshing}
+      className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg disabled:opacity-50"
+      title="Refresh data"
+    >
+      <RefreshCw
+        size={16}
+        className={refreshing ? "animate-spin" : ""}
+      />
+    </button>
+  </div>
+</div>
 
         <div className="p-5 space-y-5">
 

@@ -223,55 +223,7 @@ export default function ModerationPage() {
   return (
     <div className="flex h-screen bg-gray-50 font-sans overflow-hidden">
 
-      {/* ── Sidebar ── */}
-      <aside className="w-44 bg-[#1a1d2e] flex flex-col py-4 px-3 flex-shrink-0">
-        <div className="flex items-center gap-2 mb-8 px-1">
-          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">M</div>
-          <div>
-            <div className="text-white font-bold text-sm leading-tight">MySite</div>
-            <div className="text-gray-400 text-[9px] uppercase tracking-wider">Admin Console</div>
-          </div>
-        </div>
-        <nav className="flex-1 space-y-1">
-          {BASE_NAV.map(({ label, icon: Icon }) => (
-            <button
-              key={label}
-              onClick={() => setActiveNav(label)}
-              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-all ${
-                activeNav === label ? "bg-indigo-600 text-white" : "text-gray-400 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              <Icon size={14} />
-              <span className="flex-1 text-left">{label}</span>
-              {label === "Moderation" && badgeCount > 0 && (
-                <span className="bg-red-500 text-white text-[10px] rounded-full px-1.5">{badgeCount}</span>
-              )}
-            </button>
-          ))}
-        </nav>
-        <div className="mt-4 border border-gray-600 rounded-lg p-3">
-          <button
-            onClick={() => { setActiveNav("Moderation"); setShowSettings(true); }}
-            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs py-1.5 rounded-md transition-colors"
-          >
-            Upgrade Plan
-          </button>
-        </div>
-        <div className="mt-4 space-y-1">
-          <button
-            onClick={() => window.open("https://help.example.com", "_blank")}
-            className="w-full flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white text-xs rounded-lg hover:bg-white/10"
-          >
-            <HelpCircle size={13} />Help Center
-          </button>
-          <button
-            onClick={() => { if (confirm("Are you sure you want to log out?")) alert("Logged out. Redirect to /login in a real app."); }}
-            className="w-full flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white text-xs rounded-lg hover:bg-white/10"
-          >
-            <LogOut size={13} />Logout
-          </button>
-        </div>
-      </aside>
+    
 
       {/* ── Main ── */}
       <main className="flex-1 overflow-y-auto flex flex-col">
@@ -299,23 +251,7 @@ export default function ModerationPage() {
               )}
             </div>
 
-            {/* Refresh */}
-            <button
-              onClick={() => fetchData(true)}
-              disabled={refreshing}
-              className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg disabled:opacity-50"
-              title="Refresh"
-            >
-              <RefreshCw size={15} className={refreshing ? "animate-spin" : ""} />
-            </button>
-
-            {/* Calendar — opens date picker placeholder */}
-            <button
-              onClick={() => alert("Date range filter: integrate your date picker here.")}
-              className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg"
-            >
-              <Calendar size={16} />
-            </button>
+      
 
             {/* Notifications */}
             <div className="relative">
@@ -359,43 +295,7 @@ export default function ModerationPage() {
               )}
             </div>
 
-            {/* Settings */}
-            <div className="relative">
-              <button
-                onClick={() => { setShowSettings(v => !v); setShowNotifs(false); }}
-                className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg"
-              >
-                <Settings size={16} />
-              </button>
-              {showSettings && (
-                <div className="absolute right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-xl w-60 z-30 p-4 space-y-4">
-                  <p className="text-xs font-bold text-gray-800">Moderation Settings</p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs font-medium text-gray-700">Auto Refresh</p>
-                      <p className="text-[10px] text-gray-400">Refresh data every 60s</p>
-                    </div>
-                    <button
-                      onClick={() => setAutoRefresh(v => !v)}
-                      className={`w-9 h-5 rounded-full transition-colors relative ${autoRefresh ? "bg-indigo-600" : "bg-gray-200"}`}
-                    >
-                      <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${autoRefresh ? "translate-x-4" : ""}`} />
-                    </button>
-                  </div>
-                  <button
-                    onClick={() => { fetchData(true); setShowSettings(false); }}
-                    className="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs py-2 rounded-lg transition-colors"
-                  >
-                    Save & Refresh
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Avatar */}
-            <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center text-white text-xs font-bold cursor-pointer hover:opacity-80">
-              AR
-            </div>
+       
           </div>
         </div>
 

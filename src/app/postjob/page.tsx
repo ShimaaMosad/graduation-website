@@ -4,8 +4,7 @@ import React, { useState } from "react";
 import { Bell, Calendar, MessageSquare, Search } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import Navigation from "@/src/_components/Navigation/Navigation";
-import SecoundNavbar from "@/src/_components/SecoundNavbar/SecoundNavbar";
+
 export default function PostJobPage() {
   const [form, setForm] = useState({
   title: "",
@@ -134,10 +133,8 @@ const [activeStep, setActiveStep] = useState(0);
   return (
     <div className="bg-[#F9FAFB] min-h-screen">
 
-        <SecoundNavbar/>
         
       {/* ================= HEADER ================= */}
-             <div className="pt-[80px]">
 
 
       <div className="bg-white py-6 flex justify-center">
@@ -168,15 +165,14 @@ const [activeStep, setActiveStep] = useState(0);
           </p>
 
         </div>
-      </div>
+      
 
       </div>
 
       {/* ================= CONTENT ================= */}
       <div className="flex justify-center py-10">
-                <Navigation/>
         
-        <div className="w-[800px] bg-white rounded-2xl shadow p-10">
+        <div className="w-[1000px] bg-white rounded-2xl shadow p-10">
 
           {/* ================= STEPS ================= */}
           <div className="flex items-center justify-between mb-10">

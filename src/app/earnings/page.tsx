@@ -20,7 +20,7 @@ import {
   getEarningsOverview,
   submitWithdrawal,
   downloadTaxReport,
-} from "@/src/lib/earnings-api";
+} from "../../lib/earnings-api";
 
 export default function EarningsPage() {
   const [data, setData] = useState<EarningsData | null>(null);
@@ -111,65 +111,9 @@ export default function EarningsPage() {
 
   return (
     <main className="min-h-screen bg-[#fbf5ff] text-slate-950">
-      <aside className="fixed bottom-0 left-0 top-0 hidden w-[300px] border-r border-violet-100 bg-white lg:block">
-        <div className="border-b border-violet-100 p-7">
-          <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-100 text-violet-700">
-              <Lock className="h-6 w-6" />
-            </div>
+     
 
-            <div>
-              <h2 className="text-[20px] font-bold">Freelancer Portal</h2>
-              <p className="text-[16px] text-slate-700">Verified Account</p>
-            </div>
-          </div>
-
-          <button className="mt-7 flex w-full items-center justify-center gap-3 rounded-lg bg-violet-700 py-4 text-[18px] font-bold text-white">
-            <Wallet className="h-5 w-5" />
-            Withdraw Funds
-          </button>
-        </div>
-
-        <nav className="space-y-2 py-6 text-[18px]">
-          <Link
-            href="/checkout/payment"
-            className="flex items-center gap-4 px-8 py-4 text-slate-700"
-          >
-            <ShoppingCart className="h-5 w-5" />
-            Checkout
-          </Link>
-
-          <Link
-            href="/escrow"
-            className="flex items-center gap-4 px-8 py-4 text-slate-700"
-          >
-            <Wallet className="h-5 w-5" />
-            Escrow
-          </Link>
-
-          <Link
-            href="#"
-            className="flex items-center gap-4 px-8 py-4 text-slate-700"
-          >
-            <History className="h-5 w-5" />
-            History
-          </Link>
-
-          <Link
-            href="/earnings"
-            className="flex items-center gap-4 border-r-4 border-violet-700 bg-violet-100 px-8 py-4 font-semibold text-violet-700"
-          >
-            <Wallet className="h-5 w-5" />
-            Earnings
-          </Link>
-        </nav>
-
-        <div className="absolute bottom-7 left-8 text-[24px] font-bold text-violet-700">
-          MySite
-        </div>
-      </aside>
-
-      <section className="w-full px-8 py-12 lg:ml-[300px] lg:w-[calc(100%-300px)]">
+      <section className="w-full px-8 py-12 ">
         <div className="w-full max-w-none">
           {notice && (
             <div className="mb-5 rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-3 text-emerald-700">
@@ -183,21 +127,7 @@ export default function EarningsPage() {
             </div>
           )}
 
-          <div className="mb-8 flex items-center justify-between">
-            <h1 className="text-[38px] font-bold">Earnings & Withdrawals</h1>
-
-            <button
-              onClick={() =>
-                document
-                  .getElementById("withdraw-form")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="flex items-center gap-3 rounded-lg bg-violet-700 px-8 py-4 text-[18px] font-bold text-white"
-            >
-              <Landmark className="h-6 w-6" />
-              Withdraw Funds
-            </button>
-          </div>
+        
 
           <div className="mb-8 grid gap-5 lg:grid-cols-[1.6fr_0.75fr_0.75fr_0.75fr]">
             <div className="rounded-xl bg-violet-700 p-8 text-white shadow-sm">

@@ -6,14 +6,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { signIn } from "next-auth/react";
 
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { MdEmail, MdLock } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import { FaLinkedin } from "react-icons/fa";
 
-import { loginSchema, loginSchemaType } from "@/src/schema/login.schema";
 import { Eye, EyeOff } from "lucide-react";
+import { loginSchema, loginSchemaType } from "../../schema/login.schema";
+import { Input } from "../../../components/ui/input";
+import { Button } from "../../../components/ui/button";
 
 export default function Login() {
   const form = useForm<loginSchemaType>({
@@ -58,7 +58,7 @@ export default function Login() {
         <label className="font-medium text-gray-700">Email Address</label>
         <div className="relative">
           <MdEmail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-          <Input 
+          <Input
             placeholder="Enter your email" 
             className="h-14 pl-12 text-lg"
             {...form.register("email")}

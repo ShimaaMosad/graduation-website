@@ -29,7 +29,7 @@ import {
   FAQ,
   SupportData,
   Topic,
-} from  "@/src/lib/supportApi";
+} from "../../lib/supportApi";
 
 const quickTags = ["Getting Started", "Billing", "AI Matching", "Contracts"];
 const faqTabs: ("All" | "Freelancers" | "Clients")[] = [
@@ -128,38 +128,7 @@ export default function SupportPage() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#fff7ff] text-[#17151f]">
-      <header className="sticky top-0 z-40 flex h-[64px] items-center justify-between border-b border-purple-100 bg-white px-7">
-        <h1 className="text-[24px] font-black">MySite</h1>
-
-        <nav className="flex items-center gap-9 text-[14px]">
-          <button>Explore</button>
-          <button>Jobs</button>
-          <button>Messages</button>
-          <button className="border-b-2 border-purple-700 pb-2 text-purple-700">
-            Support
-          </button>
-        </nav>
-
-        <div className="flex h-9 w-[190px] items-center gap-2 rounded-full bg-gray-100 px-4">
-          <Search size={16} className="text-gray-500" />
-          <input
-            placeholder="Search..."
-            value={mainSearch}
-            className="w-full bg-transparent text-sm outline-none"
-            onChange={(e) => setMainSearch(e.target.value)}
-          />
-        </div>
-
-        <div className="flex items-center gap-5">
-          <button>Login</button>
-          <button className="rounded-lg bg-purple-700 px-5 py-2.5 font-semibold text-white">
-            Post a Job
-          </button>
-          <Bell size={20} />
-          <HelpCircle size={20} />
-          <UserCircle size={25} />
-        </div>
-      </header>
+     
 
       <section className="bg-gradient-to-br from-purple-700 via-indigo-600 to-blue-600 px-6 pb-24 pt-24 text-center text-white">
         <h1 className="text-[58px] font-bold leading-tight">

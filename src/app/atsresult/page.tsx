@@ -193,7 +193,6 @@ function ATSHeader() {
     <header className="h-[220px] bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl">
       <div className="h-full px-6 flex flex-col justify-between">
         <div className="flex justify-between items-center pt-6">
-          <h1 className="text-xl font-bold">MySite</h1>
          <Link
             href="/"
             className="text-sm opacity-90 cursor-pointer hover:opacity-100 transition"

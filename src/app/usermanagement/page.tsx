@@ -230,42 +230,7 @@ export default function UserManagementPage() {
 
   return (
     <div className="flex h-screen bg-gray-50 font-sans overflow-hidden">
-      {/* Sidebar */}
-      <aside className="w-44 bg-[#1a1d2e] flex flex-col py-4 px-3 flex-shrink-0">
-        <div className="flex items-center gap-2 mb-8 px-1">
-          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">M</div>
-          <div>
-            <div className="text-white font-bold text-sm leading-tight">MySite</div>
-            <div className="text-gray-400 text-[9px] uppercase tracking-wider">Admin Console</div>
-          </div>
-        </div>
-        <nav className="flex-1 space-y-1">
-          {navItems.map(({ label, icon: Icon }) => (
-            <button
-              key={label}
-              onClick={() => setActiveNav(label)}
-              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-all ${
-                activeNav === label
-                  ? "bg-indigo-600 text-white"
-                  : "text-gray-400 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              <Icon size={14} />{label}
-            </button>
-          ))}
-        </nav>
-        <button className="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs py-1.5 rounded-md transition-colors">
-          Upgrade Plan
-        </button>
-        <div className="mt-4 space-y-1">
-          <button className="w-full flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white text-xs rounded-lg hover:bg-white/10">
-            <HelpCircle size={13} />Help Center
-          </button>
-          <button className="w-full flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white text-xs rounded-lg hover:bg-white/10">
-            <LogOut size={13} />Logout
-          </button>
-        </div>
-      </aside>
+   
 
       {/* Main */}
       <main className="flex-1 overflow-y-auto">
@@ -286,23 +251,7 @@ export default function UserManagementPage() {
           </div>
         )}
 
-        {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between z-10">
-          <h1 className="text-xl font-bold text-gray-800">User Management</h1>
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                className="pl-8 pr-3 py-1.5 text-sm border border-gray-200 rounded-lg bg-gray-50 w-44 focus:outline-none focus:ring-2 focus:ring-indigo-300"
-                placeholder="Global search..."
-              />
-            </div>
-            <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg"><Calendar size={16} /></button>
-            <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg"><Bell size={16} /></button>
-            <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg"><Settings size={16} /></button>
-            <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center text-white text-xs font-bold">AR</div>
-          </div>
-        </div>
+     
 
         <div className="p-5 flex gap-4">
           {/* Left: Table Panel */}

@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { CheckCircle, AlertCircle, Info } from "lucide-react";
-import Navigation from "@/src/_components/Navigation/Navigation";
-import SecoundNavbar from "@/src/_components/SecoundNavbar/SecoundNavbar";
 type Work = {
   id: number;
   title: string;
@@ -118,9 +116,7 @@ const receive = bid - fee;
   return (
     <div className="bg-gray-50 min-h-screen">
 
-<SecoundNavbar/>
       {/* ================= HEADER ================= */}
-             <div className="pt-[80px]">
 
 
       <div className="bg-white py-6 flex justify-center">
@@ -150,11 +146,9 @@ const receive = bid - fee;
 
 
    </div>
-   </div>
    
       {/* ================= MAIN ================= */}
       <div className="w-[1200px] mx-auto py-10 flex gap-6">
-<Navigation/>
 
         {/* ================= LEFT ================= */}
         <div className="w-[720px]">

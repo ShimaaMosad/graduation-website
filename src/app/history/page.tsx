@@ -22,7 +22,7 @@ import {  HistoryData,
   TransactionType,
   exportHistoryCSV,
   getHistoryData,
-} from "@/src/lib/history";
+} from "../../lib/history";
 
 const typeOptions = ["All Types", "Payment", "Escrow Release", "Refund", "Withdrawal"];
 const statusOptions = ["All Status", "Completed", "Pending", "Failed", "Refunded"];
@@ -100,81 +100,16 @@ export default function HistoryPage() {
         width: "100%",
       }}
     >
-      <aside
-        style={{
-          width: 300,
-          minWidth: 300,
-          height: "100vh",
-          background: "#f8fafc",
-          borderRight: "1px solid #e6dff0",
-          position: "fixed",
-          left: 0,
-          top: 0,
-        }}
-      >
-        <div style={{ padding: "32px 28px", borderBottom: "1px solid #e6dff0" }}>
-          <h2 style={{ fontSize: 22, fontWeight: 700 }}>Freelancer Portal</h2>
-          <p style={{ marginTop: 10, fontSize: 16, color: "#64748b" }}>
-            Verified Account
-          </p>
-        </div>
 
-        <nav style={{ paddingTop: 26, fontSize: 16, fontWeight: 500 }}>
-          <Link href="/checkout/payment" className="flex items-center gap-4 px-8 py-4 text-slate-700">
-            <ShoppingCart size={21} /> Checkout
-          </Link>
-
-          <Link href="/escrow" className="flex items-center gap-4 px-8 py-4 text-slate-700">
-            <Wallet size={21} /> Escrow
-          </Link>
-
-          <Link
-            href="/history"
-            className="flex items-center gap-4 px-8 py-4 text-violet-700"
-            style={{ background: "#f0ebff", borderRight: "4px solid #6d28d9" }}
-          >
-            <History size={21} /> History
-          </Link>
-
-          <Link href="/earnings" className="flex items-center gap-4 px-8 py-4 text-slate-700">
-            <Wallet size={21} /> Earnings
-          </Link>
-        </nav>
-
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            padding: 28,
-            borderTop: "1px solid #e6dff0",
-          }}
-        >
-          <button
-            style={{
-              width: "100%",
-              height: 58,
-              background: "#6d28d9",
-              color: "white",
-              fontWeight: 700,
-              fontSize: 16,
-            }}
-          >
-            Withdraw Funds
-          </button>
-        </div>
-      </aside>
 
       <section
         style={{
-          marginLeft: 300,
-          width: "calc(100% - 300px)",
+          width: "100%",
           padding: "54px 58px",
         }}
       >
-        <div style={{ maxWidth: 1220, margin: "0 auto" }}>
-          <div className="mb-10 flex items-start justify-between">
+<div className="w-full px-6">        
+    <div className="mb-10 flex items-start justify-between">
             <div>
               <h1 className="text-4xl font-bold leading-none">Transaction History</h1>
               <p className="mt-3 text-lg text-slate-700">

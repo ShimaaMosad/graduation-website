@@ -3,8 +3,6 @@
 import React from "react";
 import Image from "next/image";
 import { Heart, Bell, MessageSquare, Search, Star } from "lucide-react";
-import Navigation from "@/src/_components/Navigation/Navigation";
-import SecoundNavbar from "@/src/_components/SecoundNavbar/SecoundNavbar";
 
 /* =========================
   TYPES
@@ -167,12 +165,10 @@ export default function BrowseJobsPage() {
 
   return (
     <div className="bg-[#F9FAFB] min-h-screen">
-      {/* NAVBAR */}
-<SecoundNavbar/>
 
 
       {/* HEADER */}
-      <div className="w-full h-[200px] mt-[80px] bg-gradient-to-r from-[#3B82F6] to-[#2563EB] flex items-center justify-center ">
+      <div className="w-full h-[200px] bg-gradient-to-r from-[#3B82F6] to-[#2563EB] flex items-center justify-center ">
   
   <div className="w-[1200px] h-full flex flex-col justify-center text-white gap-2">
           <h1 className="text-3xl font-bold">Find Your Next Opportunity</h1>
@@ -198,7 +194,6 @@ export default function BrowseJobsPage() {
 
       {/* MAIN */}
       <div className="w-[1200px] mx-auto flex gap-6 mt-8">
-        <Navigation/>
         
         {/* SIDEBAR */}
         <div className="w-[280px] left-0 bottom-0">

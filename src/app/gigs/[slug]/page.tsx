@@ -15,9 +15,8 @@ import {
   Star,
   ThumbsUp,
 } from "lucide-react";
+import { buildOrderQuery, getGigBySlug, GigPackageName, GigReview }from "../../../lib/gigs-api";
 
-import Navbar from "@/src/_components/Navbar/Navbar";
-import { buildOrderQuery, getGigBySlug, GigPackageName, GigReview }from "@/src/lib/gigs-api";
 
 type ReviewSort = "Most Recent" | "Highest Rating";
 
@@ -40,7 +39,6 @@ export default function GigDetailsPage() {
   if (!gig) {
     return (
       <main className="min-h-screen bg-[#f5f6f8]">
-        <Navbar/>
         <div className="mx-auto max-w-[1200px] px-4 py-16 md:px-8">
           <div className="rounded-[28px] border border-slate-200 bg-white p-10 text-center shadow-sm">
             <h1 className="text-4xl font-bold text-slate-900">Gig not found</h1>
@@ -186,7 +184,6 @@ export default function GigDetailsPage() {
 
   return (
     <main className="min-h-screen bg-[#f5f6f8]">
-      <Navbar />
 
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-[1500px] px-4 py-6 md:px-8">

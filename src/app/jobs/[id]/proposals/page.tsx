@@ -4,11 +4,10 @@ import Link from "next/link";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useParams } from "next/navigation";
+import { getProposalsByJobId, Proposal } from "../../../../lib/proposals-api";
+import { getJobById } from "../../../../lib/api";
+import ProposalCard from "../../../../_components/ProposalCard";
 
-import SecoundNavbar from "@/src/_components/SecoundNavbar/SecoundNavbar";
-import ProposalCard from "@/src/_components/ProposalCard";
-import { getProposalsByJobId, Proposal } from "@/src/lib/proposals-api";
-import { getJobById } from "@/src/lib/api";
 
 type TabType = "All Proposals" | "Shortlisted" | "Interviewed" | "Rejected";
 type SortType = "Best Match" | "Lowest Bid" | "Highest Rating" | "Fastest Delivery";
@@ -89,7 +88,6 @@ export default function ProposalsPage() {
   return (
 
     <main className="min-h-screen bg-[#f5f6f8]">
-      <SecoundNavbar />
 
       <section className="mx-auto max-w-[1500px] px-4 py-10 md:px-8">
         <div className="mb-8 flex items-center gap-3 text-[18px] text-slate-500">

@@ -1,21 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 import {
-  LayoutDashboard,
-  PlusSquare,
+  Bell,
   Briefcase,
-  Mail,
-  Search,
-  ShoppingCart,
+  Clock,
   CreditCard,
-  Sparkles,
   HelpCircle,
+  LayoutDashboard,
+  LogOut,
+  Mail,
+  PlusSquare,
+  Search,
+  ShieldCheck,
+  ShoppingCart,
+  Sparkles,
+  User,
 } from "lucide-react";
-
-// ── Types ────────────────────────────────────────────────────────────────────
 
 interface NavItem {
   label: string;
@@ -24,19 +27,21 @@ interface NavItem {
   badge?: number;
 }
 
-// ── Data ─────────────────────────────────────────────────────────────────────
-
 const NAV_ITEMS: NavItem[] = [
-  { label: "Dashboard", href: "/dashboard", icon: <LayoutDashboard size={18} /> },
-  { label: "Post Job",  href: "/post-job",  icon: <PlusSquare size={18} /> },
-  { label: "My Jobs",   href: "/my-jobs",   icon: <Briefcase size={18} />, badge: 3 },
-  { label: "Messages",  href: "/messages",  icon: <Mail size={18} />,      badge: 5 },
-  { label: "Search",    href: "/search",    icon: <Search size={18} /> },
-  { label: "Orders",    href: "/orders",    icon: <ShoppingCart size={18} />, badge: 2 },
-  { label: "Payment",   href: "/payment",   icon: <CreditCard size={18} /> },
+  { label: "Home", href: "/home", icon: <LayoutDashboard size={18} /> },
+  { label: "Make a Post", href: "/create-post", icon: <PlusSquare size={18} /> },
+  { label: "Browse Jobs", href: "/browsejob", icon: <Briefcase size={18} /> },
+  { label: "My Jobs", href: "/jobs", icon: <Briefcase size={18} /> },
+  { label: "Messages", href: "/messages", icon: <Mail size={18} />, badge: 5 },
+  { label: "Search", href: "/search", icon: <Search size={18} /> },
+  { label: "Orders", href: "/orders", icon: <ShoppingCart size={18} />, badge: 2 },
+  { label: "History", href: "/history", icon: <Clock size={18} /> },
+  { label: "Escrow", href: "/escrow", icon: <ShieldCheck size={18} /> },
+  { label: "Payment", href: "/checkout/payment", icon: <CreditCard size={18} /> },
+  { label: "Notifications", href: "/notifications", icon: <Bell size={18} /> },
+  { label: "Profile", href: "/profile", icon: <User size={18} /> },
+  { label: "Support", href: "/support", icon: <HelpCircle size={18} /> },
 ];
-
-// ── Sub-components ────────────────────────────────────────────────────────────
 
 function Badge({ count }: { count: number }) {
   return (
@@ -46,21 +51,20 @@ function Badge({ count }: { count: number }) {
   );
 }
 
-// ── Sidebar ───────────────────────────────────────────────────────────────────
-
 export default function ClientSidebar() {
   const pathname = usePathname();
 
-  return (
-    <aside className="flex h-screen w-64 flex-col border-r border-slate-100 bg-white font-sans">
+  async function handleLogout() {
+    await signOut({ redirect: false });
+    window.location.href = "/login";
+  }
 
-      {/* ── Logo ── */}
-      <div className="flex items-center gap-3 px-5 py-5">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-600">
-          {/* rocket icon */}
-          <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-white" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.82m5.84-2.56a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.63 8.41m5.96 5.96a14.926 14.926 0 0 1-5.96 2.91m0 0a15.055 15.055 0 0 1-5.16-4.07M5.45 8.7A14.985 14.985 0 0 0 3.27 14.7a14.985 14.985 0 0 0 9.41 2.24" />
-          </svg>
+  return (
+    <aside className="flex h-screen w-64 flex-col border-r border-slate-100 bg-white font-sans sticky top-0 shrink-0">
+      {/* Brand */}
+      <div className="flex items-center gap-3 px-5 py-5 border-b border-slate-100">
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-600 text-white font-bold">
+          M
         </div>
         <div>
           <p className="text-sm font-bold leading-none text-violet-600">Client Portal</p>
@@ -70,33 +74,15 @@ export default function ClientSidebar() {
         </div>
       </div>
 
-      {/* ── User card ── */}
-      <div className="mx-4 mb-5 flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50 px-3 py-2.5">
-        <div className="relative">
-          <img
-            src="https://i.pravatar.cc/40?img=47"
-            alt="Sara Chen"
-            className="h-9 w-9 rounded-full object-cover"
-          />
-          {/* online dot */}
-          <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-white bg-emerald-500" />
-        </div>
-        <div>
-          <p className="text-sm font-semibold text-slate-800">Sara Chen</p>
-          <span className="rounded-sm bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-emerald-600">
-            Verified Client
-          </span>
-        </div>
-      </div>
-
-      {/* ── Main Menu ── */}
-      <nav className="flex-1 px-3">
+      {/* Nav */}
+      <nav className="flex-1 overflow-y-auto px-3 py-3">
         <p className="mb-2 px-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
           Main Menu
         </p>
         <ul className="space-y-0.5">
           {NAV_ITEMS.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive =
+              pathname === item.href || pathname.startsWith(item.href + "/");
             return (
               <li key={item.href}>
                 <Link
@@ -107,19 +93,17 @@ export default function ClientSidebar() {
                       : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   }`}
                 >
-                  {/* active accent bar */}
                   <span
-                    className={`flex h-5 w-5 items-center justify-center transition-colors ${
-                      isActive ? "text-violet-600" : "text-slate-400 group-hover:text-slate-600"
-                    }`}
+                    className={
+                      isActive
+                        ? "text-violet-600"
+                        : "text-slate-400 group-hover:text-slate-600"
+                    }
                   >
                     {item.icon}
                   </span>
                   {item.label}
                   {item.badge !== undefined && <Badge count={item.badge} />}
-                  {isActive && (
-                    <span className="ml-auto h-1.5 w-1.5 rounded-full bg-violet-600" />
-                  )}
                 </Link>
               </li>
             );
@@ -127,11 +111,8 @@ export default function ClientSidebar() {
         </ul>
       </nav>
 
-      {/* ── Upgrade banner ── */}
-      <div className="mx-4 mb-4 mt-4 overflow-hidden rounded-2xl bg-gradient-to-br from-violet-600 to-purple-700 p-4 text-white shadow-lg shadow-violet-200">
-        {/* decorative blob */}
-        <div className="pointer-events-none absolute right-3 top-2 h-16 w-16 rounded-full bg-white/10 blur-2xl" />
-
+      {/* Upgrade card */}
+      <div className="mx-4 mb-4 overflow-hidden rounded-2xl bg-gradient-to-br from-violet-600 to-purple-700 p-4 text-white shadow-lg shadow-violet-200">
         <p className="mb-0.5 text-[10px] font-bold uppercase tracking-widest text-violet-200">
           Account
         </p>
@@ -139,19 +120,23 @@ export default function ClientSidebar() {
           <Sparkles size={16} className="text-yellow-300" />
           <p className="text-sm font-bold">Upgrade to Pro</p>
         </div>
-        <p className="mb-3 text-xs leading-relaxed text-violet-200">
-          Unlock advanced project analytics and priority support.
-        </p>
-        <button className="w-full rounded-xl bg-white py-2 text-xs font-bold text-violet-700 transition hover:bg-violet-50">
+        <Link
+          href="/checkout/payment"
+          className="block w-full rounded-xl bg-white py-2 text-center text-xs font-bold text-violet-700 transition hover:bg-violet-50"
+        >
           View Pricing
-        </button>
+        </Link>
       </div>
 
-      {/* ── Footer ── */}
-      <div className="flex items-center justify-between border-t border-slate-100 px-5 py-3">
-        <p className="text-[11px] text-slate-400">© 2024 Client Portal</p>
-        <button className="text-slate-400 hover:text-slate-600">
-          <HelpCircle size={14} />
+      {/* Sign out */}
+      <div className="px-4 pb-4">
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-500 transition hover:bg-red-50"
+        >
+          <LogOut size={16} />
+          Sign Out
         </button>
       </div>
     </aside>

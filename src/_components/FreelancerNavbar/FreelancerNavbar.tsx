@@ -3,29 +3,23 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { Bell, MessageSquare, HelpCircle, Search } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
+import { Bell, HelpCircle, MessageSquare, PlusCircle, Search } from "lucide-react";
 
-// ─── Types ──────────────────────────────────────────────────
-interface FreelancerNavbarProps {
-  notificationsCount?: number;
-  messagesCount?: number;
-}
-
-// ─── Main Component ─────────────────────────────────────────
 export default function FreelancerNavbar({
   notificationsCount = 12,
   messagesCount = 5,
-}: FreelancerNavbarProps) {
+}: {
+  notificationsCount?: number;
+  messagesCount?: number;
+}) {
   const { data: session } = useSession();
   const router = useRouter();
   const [query, setQuery] = useState("");
 
   const user = session?.user as any;
-  const name  = user?.name  ?? "Ahmed Saleh";
-  const image = user?.image ?? null;
-
-  // Initials avatar fallback
+  const name: string = user?.name ?? "Freelancer";
+  const image: string | null = user?.image ?? null;
   const initials = name
     .split(" ")
     .map((n: string) => n[0])
@@ -33,34 +27,31 @@ export default function FreelancerNavbar({
     .toUpperCase()
     .slice(0, 2);
 
-  // ── Search handler
-  const handleSearch = (e: React.FormEvent) => {
+  function handleSearch(e: React.FormEvent) {
     e.preventDefault();
-    if (query.trim()) {
-      router.push(`/freelancer/search?q=${encodeURIComponent(query.trim())}`);
-    }
-  };
+    const q = query.trim();
+    if (q) router.push(`/search?q=${encodeURIComponent(q)}`);
+  }
+
+  async function handleLogout() {
+    await signOut({ redirect: false });
+    window.location.href = "/login";
+  }
 
   return (
-    <header className="h-14 bg-white border-b border-gray-100 flex items-center px-4 gap-4 shadow-sm sticky top-0 z-50">
-
-      {/* ── Logo ── */}
+    <header className="h-14 bg-white border-b border-gray-100 flex items-center px-4 gap-4 shadow-sm sticky top-0 z-30">
+      {/* Brand */}
       <div className="flex items-center gap-2 shrink-0">
-        <Link href="/" className="text-sm font-bold">
+        <Link href="/projects" className="text-sm font-bold">
           <span className="text-gray-900">My</span>
           <span className="text-violet-600">Site</span>
         </Link>
         <span className="text-gray-200 font-light text-lg">|</span>
-        <span className="text-sm font-semibold text-gray-700">
-          Freelancer Panel
-        </span>
+        <span className="text-sm font-semibold text-gray-700">Freelancer Panel</span>
       </div>
 
-      {/* ── Search ── */}
-      <form
-        onSubmit={handleSearch}
-        className="flex-1 max-w-xl mx-auto"
-      >
+      {/* Search */}
+      <form onSubmit={handleSearch} className="flex-1 max-w-xl mx-auto">
         <div className="relative flex items-center">
           <Search
             size={15}
@@ -70,22 +61,24 @@ export default function FreelancerNavbar({
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search gigs, jobs, freelancers..."
-            className="w-full pl-9 pr-16 py-2 text-sm bg-gray-50 border border-gray-200 rounded-full outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-400 transition-all placeholder:text-gray-400"
+            placeholder="Search projects, gigs, clients..."
+            className="w-full pl-9 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-full outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-400 transition-all placeholder:text-gray-400"
           />
-          {/* ⌘K hint */}
-          <kbd className="absolute right-3 text-[10px] text-gray-400 bg-gray-100 border border-gray-200 rounded px-1.5 py-0.5 font-mono pointer-events-none">
-            ⌘K
-          </kbd>
         </div>
       </form>
 
-      {/* ── Right Actions ── */}
+      {/* Right actions */}
       <div className="flex items-center gap-1 shrink-0">
-
-        {/* Notifications */}
         <Link
-          href="/freelancer/notifications"
+          href="/freelancer/create-gig"
+          className="hidden md:flex items-center gap-1 rounded-lg bg-violet-600 px-3 py-2 text-xs font-semibold text-white hover:bg-violet-700 transition-colors"
+        >
+          <PlusCircle size={15} />
+          Add Gig
+        </Link>
+
+        <Link
+          href="/notifications"
           className="relative p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-600"
           aria-label="Notifications"
         >
@@ -97,9 +90,8 @@ export default function FreelancerNavbar({
           )}
         </Link>
 
-        {/* Messages */}
         <Link
-          href="/freelancer/messages"
+          href="/messages"
           className="relative p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-600"
           aria-label="Messages"
         >
@@ -111,17 +103,15 @@ export default function FreelancerNavbar({
           )}
         </Link>
 
-        {/* Help */}
         <Link
-          href="/freelancer/support"
+          href="/support"
           className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-600"
           aria-label="Help"
         >
           <HelpCircle size={18} />
         </Link>
 
-        {/* Avatar */}
-        <Link href="/freelancer/profile" className="ml-1">
+        <Link href="/profile" className="ml-1">
           {image ? (
             <img
               src={image}
@@ -134,6 +124,14 @@ export default function FreelancerNavbar({
             </div>
           )}
         </Link>
+
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="ml-2 rounded-lg px-3 py-2 text-xs font-semibold text-red-500 hover:bg-red-50 transition-colors"
+        >
+          Logout
+        </button>
       </div>
     </header>
   );

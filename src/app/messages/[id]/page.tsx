@@ -20,69 +20,10 @@ import {
   scheduleMeeting,
   sendCustomOffer,
   sendMessage,
-} from "@/src/lib/messages-api";
+} from  "../../../lib/messages-api";
 
 
-function Sidebar() {
-  return (
-    <aside className="hidden h-screen w-[280px] shrink-0 border-r border-violet-200 bg-white lg:flex lg:flex-col">
-      <div className="flex h-[70px] items-center border-b border-violet-100 px-7">
-        <Link href="/" className="text-[28px] font-bold text-violet-700">MySite</Link>
-      </div>
 
-      <div className="border-b border-violet-100 px-7 py-5">
-        <div className="flex items-center gap-4">
-          <img src="https://i.pravatar.cc/100?img=13" className="h-12 w-12 rounded-full" />
-          <div>
-            <h3 className="font-bold">Alex Johnson</h3>
-            <p className="text-sm text-slate-500">Professional Seller</p>
-          </div>
-        </div>
-      </div>
-
-      <nav className="flex-1 space-y-1 px-3 py-5 text-[16px]">
-        <Link href="/" className="flex items-center gap-4 rounded-xl px-5 py-3.5 text-slate-600"><Grid2X2 className="h-5 w-5" /> Dashboard</Link>
-        <Link href="/gigs" className="flex items-center gap-4 rounded-xl px-5 py-3.5 text-slate-600"><Briefcase className="h-5 w-5" /> My Gigs</Link>
-        <Link href="/orders" className="flex items-center gap-4 rounded-xl px-5 py-3.5 text-slate-600"><ShoppingCart className="h-5 w-5" /> Orders</Link>
-        <Link href="/messages" className="flex items-center gap-4 rounded-xl border-l-4 border-violet-700 bg-violet-100 px-5 py-3.5 font-semibold text-violet-700"><MessageSquare className="h-5 w-5" /> Messages</Link>
-        <Link href="/gigs/modern-logo-brand/analytics" className="flex items-center gap-4 rounded-xl px-5 py-3.5 text-slate-600"><BarChart3 className="h-5 w-5" /> Earnings</Link>
-        <Link href="/profile" className="flex items-center gap-4 rounded-xl px-5 py-3.5 text-slate-600"><User className="h-5 w-5" /> Profile</Link>
-        <Link href="/settings" className="flex items-center gap-4 rounded-xl px-5 py-3.5 text-slate-600"><Settings className="h-5 w-5" /> Settings</Link>
-      </nav>
-
-      <div className="border-t border-violet-100 p-6">
-        <button className="mb-5 w-full rounded-lg border border-slate-300 py-3">Switch to Buying</button>
-        <div className="flex items-center gap-4 text-slate-500">
-          <HelpCircle className="h-5 w-5" /> Help & Support
-        </div>
-      </div>
-    </aside>
-  );
-}
-
-function Topbar() {
-  return (
-    <header className="flex h-[70px] shrink-0 items-center justify-between border-b border-violet-200 bg-white px-7">
-      <div className="flex h-12 w-[270px] items-center gap-3 rounded-full bg-violet-100 px-5">
-        <Search className="h-5 w-5 text-slate-500" />
-        <input placeholder="Search..." className="w-full bg-transparent text-sm outline-none" />
-      </div>
-
-      <nav className="hidden items-center gap-10 text-[15px] md:flex">
-        <Link href="/gigs">Browse</Link>
-        <Link href="#">Explore</Link>
-        <Link href="#">Community</Link>
-      </nav>
-
-      <div className="flex items-center gap-5">
-        <Bell className="h-5 w-5 text-slate-600" />
-        <Mail className="h-5 w-5 text-slate-600" />
-        <Link href="/freelancer/create-gig" className="rounded-lg border border-violet-600 px-5 py-3 text-violet-700">Post a Gig</Link>
-        <img src="https://i.pravatar.cc/100?img=13" className="h-9 w-9 rounded-full" />
-      </div>
-    </header>
-  );
-}
 
 function Avatar({ conversation }: { conversation: Conversation }) {
   if (conversation.avatar) {
@@ -148,10 +89,8 @@ export default function MessageDetailsPage() {
 
   return (
     <main className="flex h-screen overflow-hidden bg-[#fcf5ff] text-slate-950">
-      <Sidebar />
 
       <section className="flex min-w-0 flex-1 flex-col">
-        <Topbar />
 
         {notice && (
           <div className="mx-5 mt-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">

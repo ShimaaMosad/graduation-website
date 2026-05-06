@@ -9,7 +9,7 @@ import {
   savePreferencesDraft,
   submitPreferences,
   PreferenceData,
-} from "@/src/lib/preferencesApi";
+} from  "../../lib/preferencesApi";
 
 const categories = [
   "Web Design",

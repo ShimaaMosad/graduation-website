@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getPostedJobs } from '@/src/lib/api';
+import { getPostedJobs } from "../../lib/api";
 export default function JobsPage() {
   const jobs = getPostedJobs();
 

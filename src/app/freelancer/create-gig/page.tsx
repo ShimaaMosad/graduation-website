@@ -277,7 +277,7 @@ const handlePublish = async () => {
   
     <div className="bg-[#FAFAFA] min-h-screen p-8">
       {/* Content Card */}
-<div className="bg-white rounded-2xl shadow-sm p-8 max-w-3xl mx-auto">        
+<div className="bg-white rounded-2xl shadow-sm p-8 w-full mx-auto">        
        {/* ================= Gig Overview ================= */}
 <h2 className="text-xl font-semibold mb-6">Gig Overview</h2>
 

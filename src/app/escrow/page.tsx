@@ -18,14 +18,8 @@ import {
   Settings,
   Wallet,
 } from "lucide-react";
-import {
-  EscrowData,
-  addEscrowFunds,
-  approveMilestoneRelease,
-  getEscrowData,
-  raiseEscrowDispute,
-  requestMilestoneRevision,
-}  from "@/src/lib/payments-api";
+import { addEscrowFunds, approveMilestoneRelease, EscrowData, getEscrowData, raiseEscrowDispute, requestMilestoneRevision } from "../../lib/payments-api";
+
 
 
 type ModalType = "fund" | "release" | "revision" | "dispute" | null;
@@ -117,80 +111,9 @@ export default function EscrowPage() {
 
   return (
     <main className="min-h-screen bg-[#fbf5ff] text-slate-950">
-      <header className="fixed left-0 right-0 top-0 z-30 flex h-[56px] items-center justify-between border-b border-violet-100 bg-white px-5">
-        <Link href="/" className="text-[20px] font-bold text-violet-700">
-          MySite
-        </Link>
 
-        <div className="flex items-center gap-6">
-          <Bell className="h-5 w-5 text-slate-600" />
-          <Settings className="h-5 w-5 text-slate-600" />
-          <img
-            src="https://i.pravatar.cc/100?img=47"
-            className="h-8 w-8 rounded-full object-cover"
-            alt="profile"
-          />
-        </div>
-      </header>
-<aside className="fixed bottom-0 left-0 top-[56px] hidden w-[290px] border-r border-violet-100 bg-white lg:block">
-        <div className="border-b border-violet-100 p-6 text-center">
-          <img
-            src="https://i.pravatar.cc/100?img=47"
-            className="mx-auto h-16 w-16 rounded-full border-4 border-violet-700 object-cover"
-            alt="freelancer"
-          />
-
-          <h2 className="mt-3 text-[18px] font-bold">Freelancer Portal</h2>
-          <p className="mt-1 text-sm text-slate-500">✹ Verified Account</p>
-        </div>
-
-        <nav className="space-y-2 p-4 text-[15px]">
-          <Link
-            href="/checkout/payment"
-            className="flex items-center gap-3 rounded-lg px-4 py-3 text-slate-700"
-          >
-            <CreditCard className="h-5 w-5" />
-            Checkout
-          </Link>
-
-          <Link
-            href="/escrow"
-            className="flex items-center gap-3 rounded-lg border-r-4 border-violet-700 bg-violet-100 px-4 py-3 font-semibold text-violet-700"
-          >
-            <Lock className="h-5 w-5" />
-            Escrow
-          </Link>
-
-          <Link
-            href="#"
-            className="flex items-center gap-3 rounded-lg px-4 py-3 text-slate-700"
-          >
-            <History className="h-5 w-5" />
-            History
-          </Link>
-
-          <Link
-            href="/gigs/modern-logo-brand/analytics"
-            className="flex items-center gap-3 rounded-lg px-4 py-3 text-slate-700"
-          >
-            <Wallet className="h-5 w-5" />
-            Earnings
-          </Link>
-        </nav>
-
-        <div className="absolute bottom-5 left-4 right-4">
-          <button
-            onClick={openFundModal}
-            className="w-full rounded-lg bg-violet-700 py-3 font-bold text-white shadow-md"
-          >
-            <Landmark className="mr-2 inline h-5 w-5" />
-            Withdraw Funds
-          </button>
-        </div>
-      </aside>
-
-<section className="w-full px-8 pt-[86px] lg:ml-[300px] lg:w-[calc(100%-300px)]">
-<div className="w-[90%] min-w-[1150px]">
+<section className="w-full px-8 pt-4 ">
+<div className="w-full ">
               {notice && (
             <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-3 text-emerald-700">
               {notice}

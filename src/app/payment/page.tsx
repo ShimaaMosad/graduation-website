@@ -18,7 +18,8 @@ import {
   applyPromoCode,
   getCheckoutSummary,
   submitPayment,
-} from "@/src/lib/payments-api";
+} from "../../lib/payments-api";
+
 
 type Method = "Credit Card" | "PayPal" | "Bank Transfer";
 
@@ -29,7 +30,7 @@ type Errors = {
   cvv?: string;
 };
 
-export default function PaymentPage() {
+export default function paymentPage() {
   const [summary, setSummary] = useState<CheckoutSummary | null>(null);
   const [method, setMethod] = useState<Method>("Credit Card");
   const [promo, setPromo] = useState("SUMMER10");
@@ -144,29 +145,7 @@ export default function PaymentPage() {
 
   return (
     <main className="min-h-screen bg-[#fcf5ff]">
-      <header className="flex h-[68px] items-center justify-between border-b border-violet-100 bg-white px-7">
-        <Link href="/" className="text-[25px] font-bold text-violet-700">
-          MySite
-        </Link>
-
-        <div className="flex h-11 w-[280px] items-center gap-3 rounded-full bg-violet-100 px-5">
-          <Search className="h-5 w-5 text-slate-400" />
-          <input
-            placeholder="Search"
-            className="w-full bg-transparent text-[15px] outline-none placeholder:text-slate-400"
-          />
-        </div>
-
-        <div className="flex items-center gap-6">
-          <Bell className="h-5 w-5 text-slate-600" />
-          <Settings className="h-5 w-5 text-slate-600" />
-          <img
-            src="https://i.pravatar.cc/100?img=13"
-            className="h-9 w-9 rounded-full"
-            alt="profile"
-          />
-        </div>
-      </header>
+ 
 
       <section className="w-full px-[70px] py-9">
         {notice && (

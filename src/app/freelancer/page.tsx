@@ -28,7 +28,6 @@ import {
    Edit,
 
 } from "lucide-react";
-import FreelancerNavbar from "@/src/_components/FreelancerNavbar/FreelancerNavbar";
 
 export default function FreelancerProfilePublic() {
   const [portfolioTab, setPortfolioTab] = useState<"gigs" | "projects">("gigs");
@@ -44,9 +43,7 @@ export default function FreelancerProfilePublic() {
   };
   return (
     <main className="bg-[#F9FAFB] min-h-screen">
-      {/* ================= NAVBAR ================= */}
-<FreelancerNavbar/>
-
+  
       {/* ================= COVER ================= */}
       <section className="h-[280px] bg-gradient-to-r from-[#8B5CF6] to-[#6366F1] relative">
         <div className="absolute -bottom-20 left-1/2 -translate-x-1/2">

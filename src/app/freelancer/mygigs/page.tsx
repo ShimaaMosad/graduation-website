@@ -380,7 +380,7 @@ const tabCounts: Record<TabKey, number> = {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6 font-sans">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-8xl mx-auto">
         {/* ── Header ── */}
         <div className="flex items-start justify-between mb-6">
           <div>

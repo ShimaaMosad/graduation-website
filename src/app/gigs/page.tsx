@@ -22,8 +22,7 @@ import {
   mockGigs,
   SellerLevel,
   ServiceInclude,
-}from "@/src/lib/gigs-api";
-import Navbar from "@/src/_components/Navbar/Navbar";
+}from  "../../lib/gigs-api";
 
 const DELIVERY_OPTIONS: DeliveryOption[] = [
   "Express (24 hrs)",
@@ -254,7 +253,6 @@ export default function GigsPage() {
 
   return (
     <main className="min-h-screen bg-[#f5f6f8]">
-      <Navbar />
 
       <section className="bg-gradient-to-r from-fuchsia-600 to-blue-500 px-4 py-14 md:px-8 md:py-16">
         <div className="mx-auto max-w-[1200px] text-center">

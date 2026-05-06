@@ -12,13 +12,12 @@ import {
   ShoppingCart,
   Sparkles,
 } from "lucide-react";
-
-import Navbar from "@/src/_components/Navbar/Navbar";
 import {
   AnalyticsMetric,
   GigAnalytics,
   getGigAnalytics,
-}from "@/src/lib/analytics-api";
+}from  "../../../../lib/analytics-api";
+
 const metricLabels: Record<AnalyticsMetric, string> = {
   impressions: "Impressions",
   clicks: "Clicks",
@@ -96,7 +95,6 @@ export default function GigAnalyticsPage() {
   if (!analytics) {
     return (
       <main className="min-h-screen bg-[#f5f6f8]">
-        <Navbar />
         <div className="mx-auto max-w-[1400px] px-6 py-8">
           <div className="rounded-2xl bg-white p-8 text-center text-slate-500">
             Loading analytics...
@@ -108,7 +106,6 @@ export default function GigAnalyticsPage() {
 
   return (
     <main className="min-h-screen bg-[#f5f6f8]">
-      <Navbar />
 
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-[1400px] px-6 py-6">

@@ -17,7 +17,7 @@ import {
   generateBioWithAI,
   ProfileSetupData,
   LanguageItem,
-} from "@/src/lib/profileSetupApi";
+} from "../../lib/profileSetupApi";
 
 const languageOptions = ["Arabic", "English", "French", "German", "Spanish"];
 

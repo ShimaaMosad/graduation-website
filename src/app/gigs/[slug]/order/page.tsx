@@ -4,8 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { Check, ChevronDown, ChevronRight, CreditCard, ShieldCheck } from "lucide-react";
-import { getGigBySlug, parseExtraIds } from "@/src/lib/gigs-api";
-import Navbar from "@/src/_components/Navbar/Navbar";
+import { getGigBySlug, parseExtraIds }  from "../../../../lib/gigs-api";
 
 export default function GigOrderPage() {
   const params = useParams();
@@ -29,7 +28,6 @@ export default function GigOrderPage() {
   if (!gig) {
     return (
       <main className="min-h-screen bg-[#f5f6f8]">
-        <Navbar />
         <div className="mx-auto max-w-[1200px] px-4 py-16 md:px-8">
           <div className="rounded-[28px] border border-slate-200 bg-white p-10 text-center shadow-sm">
             <h1 className="text-4xl font-bold text-slate-900">Order not found</h1>
@@ -81,7 +79,6 @@ export default function GigOrderPage() {
 
   return (
     <main className="min-h-screen bg-[#f5f6f8]">
-      <Navbar />
 
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-[1500px] px-4 py-6 md:px-8">

@@ -295,50 +295,7 @@ export default function TeamCollaboration() {
   return (
     <div className="min-h-screen bg-[#F3F0FF]">
 
-      {/* ── Navbar ── */}
-      <nav className="bg-white border-b border-gray-100 px-6 py-3 flex items-center justify-between sticky top-0 z-40">
-        <div className="flex items-center gap-8">
-          <span className="text-purple-600 font-bold text-lg">MySite</span>
-          <div className="hidden md:flex items-center gap-6 text-sm text-gray-500">
-            {["Dashboard", "Teams", "Workspace", "Payments"].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`hover:text-gray-800 transition-colors pb-0.5 border-b-2 ${
-                  activeTab === tab
-                    ? "text-purple-600 font-medium border-purple-600"
-                    : "border-transparent"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setShowCreateModal(true)}
-            className="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-          >
-            Create Team
-          </button>
-          <button
-            className="p-2 text-gray-500 hover:text-gray-700"
-            onClick={() => showToast("No new notifications")}
-          >
-            <Bell size={20} />
-          </button>
-          <button
-            className="p-2 text-gray-500 hover:text-gray-700"
-            onClick={() => showToast("Settings opened")}
-          >
-            <Settings size={20} />
-          </button>
-          <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-white text-xs font-medium">
-            AH
-          </div>
-        </div>
-      </nav>
+   
 
       {/* ── Breadcrumb ── */}
       <div className="px-6 py-4 max-w-6xl mx-auto">
@@ -589,6 +546,16 @@ export default function TeamCollaboration() {
               ))}
             </div>
           </div>
+             <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowCreateModal(true)}
+            className="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors w-full"
+          >
+            Create Team
+          </button>
+       
+         
+        </div>
         </div>
 
         {/* ── Right Col ── */}

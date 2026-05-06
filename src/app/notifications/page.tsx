@@ -2,355 +2,333 @@
 
 import { useEffect, useMemo, useState } from "react";
 import {
-  Bell,
-  HelpCircle,
-  UserCircle,
-  Briefcase,
-  MessageSquare,
-  CreditCard,
-  Star,
-  Sparkles,
-  Settings,
-  ShieldAlert,
-  ShoppingBag,
-  RefreshCcw,
+  ShoppingBag, MessageSquare, CreditCard, Star,
+  Sparkles, ShieldAlert, RefreshCcw, Search, LayoutList, Bell,
 } from "lucide-react";
-import {
-  getNotifications,
-  loadOlderNotifications,
-  markAllNotificationsAsRead,
-  markNotificationAsRead,
-  NotificationItem,
-  NotificationType,
-} from"@/src/lib/notificationsApi";
 
+// ── Types ──────────────────────────────────────────────────────────────────────
+type NotificationType = "orders" | "messages" | "payments" | "reviews" | "matches" | "system";
+type NotificationGroup = "TODAY" | "YESTERDAY" | "THIS WEEK" | "OLDER";
 
-const filters: {
+interface NotificationAction {
   label: string;
-  value: "all" | NotificationType;
-  icon: any;
-}[] = [
-  { label: "All", value: "all", icon: MessageSquare },
-  { label: "Orders", value: "orders", icon: Briefcase },
-  { label: "Messages", value: "messages", icon: MessageSquare },
-  { label: "Payments", value: "payments", icon: CreditCard },
-  { label: "Reviews", value: "reviews", icon: Star },
-  { label: "Job Matches", value: "matches", icon: Sparkles },
-  { label: "System", value: "system", icon: Settings },
+  type: "primary" | "secondary" | "danger";
+}
+
+interface NotificationItem {
+  id: number;
+  type: NotificationType;
+  group: NotificationGroup;
+  title: string;
+  description: string;
+  time: string;
+  unread: boolean;
+  avatar?: string;
+  actions?: NotificationAction[];
+}
+
+// ── API response shape from your backend ──────────────────────────────────────
+// Your API should return an array of NotificationItem objects.
+// Each item must include: id, type, group, title, description, time, unread
+// Optional: avatar, actions[]
+//
+// Example response from GET /api/notifications:
+// [
+//   {
+//     "id": 1,
+//     "type": "orders",
+//     "group": "TODAY",
+//     "title": "New order received",
+//     "description": "Order #1042 from Sarah M. — $48.00 for 2 items.",
+//     "time": "2m ago",
+//     "unread": true,
+//     "actions": [{ "label": "View Order", "type": "primary" }]
+//   },
+//   ...
+// ]
+
+// ── API functions (swap comments to switch between real API and mock) ──────────
+
+async function fetchNotifications(): Promise<NotificationItem[]> {
+  // ── REAL API (uncomment when backend is ready) ──
+  // const res = await fetch("/api/notifications");
+  // if (!res.ok) throw new Error("Failed to fetch notifications");
+  // return res.json();
+
+  // ── MOCK DATA (remove when using real API) ──
+  return new Promise((res) =>
+    setTimeout(
+      () =>
+        res([
+          { id: 1, type: "orders",   group: "TODAY",     title: "New order received",  description: "Order #1042 from Sarah M. — $48.00 for 2 items.",                                           time: "2m ago",    unread: true,  actions: [{ label: "View Order", type: "primary" }] },
+          { id: 2, type: "messages", group: "TODAY",     title: "Message from Alex",   description: "Hey, is this item still available? I'd like to buy it ASAP.",                               time: "14m ago",   unread: true,  actions: [{ label: "Reply", type: "primary" }] },
+          { id: 3, type: "payments", group: "TODAY",     title: "Payment received",    description: "$120.00 has been deposited into your account from order #1038.",                             time: "1h ago",    unread: false, actions: [] },
+          { id: 4, type: "system",   group: "TODAY",     title: "New login detected",  description: "A login was detected from Cairo, EG. If this wasn't you, secure your account immediately.", time: "3h ago",    unread: true,  actions: [{ label: "Secure Account", type: "danger" }, { label: "Yes, it was me", type: "secondary" }] },
+          { id: 5, type: "reviews",  group: "YESTERDAY", title: "New 5-star review",   description: '"Great product, fast shipping, highly recommend!" — from @hamza_k',                        time: "Yesterday", unread: false, actions: [{ label: "Open", type: "primary" }] },
+          { id: 6, type: "matches",  group: "YESTERDAY", title: "New job match found", description: 'A new project matching your skills: "React Native developer needed for 3 months."',        time: "Yesterday", unread: true,  actions: [{ label: "Open", type: "primary" }] },
+          { id: 7, type: "orders",   group: "THIS WEEK", title: "Order shipped",       description: "Order #1035 shipped via Aramex. Expected delivery: May 9.",                                 time: "Mon",       unread: false, actions: [] },
+          { id: 8, type: "payments", group: "THIS WEEK", title: "Payout processed",    description: "Your weekly payout of $340.00 has been sent to your bank account.",                         time: "Sun",       unread: false, actions: [] },
+        ]),
+      400
+    )
+  );
+}
+
+async function fetchOlderNotifications(): Promise<NotificationItem[]> {
+  // ── REAL API (uncomment when backend is ready) ──
+  // const res = await fetch("/api/notifications?group=older");
+  // if (!res.ok) throw new Error("Failed to load older notifications");
+  // return res.json();
+
+  // ── MOCK DATA (remove when using real API) ──
+  return new Promise((res) =>
+    setTimeout(
+      () =>
+        res([
+          { id: 9,  type: "messages", group: "OLDER", title: "Support replied",  description: "Your support ticket #772 has been resolved.",              time: "Last week", unread: false, actions: [] },
+          { id: 10, type: "orders",   group: "OLDER", title: "Order completed",  description: "Order #1020 was marked as completed by the buyer.",         time: "May 1",     unread: false, actions: [] },
+        ]),
+      800
+    )
+  );
+}
+
+async function patchMarkRead(id: number): Promise<void> {
+  // ── REAL API (uncomment when backend is ready) ──
+  // await fetch(`/api/notifications/${id}/read`, { method: "PATCH" });
+
+  // ── MOCK (remove when using real API) ──
+  console.log("markRead", id);
+}
+
+async function patchMarkAllRead(): Promise<void> {
+  // ── REAL API (uncomment when backend is ready) ──
+  // await fetch("/api/notifications/read-all", { method: "PATCH" });
+
+  // ── MOCK (remove when using real API) ──
+  console.log("markAllRead");
+}
+
+// ── Config ─────────────────────────────────────────────────────────────────────
+const FILTERS = [
+  { label: "All",      value: "all"      as const, icon: LayoutList    },
+  { label: "Orders",   value: "orders"   as const, icon: ShoppingBag   },
+  { label: "Messages", value: "messages" as const, icon: MessageSquare },
+  { label: "Payments", value: "payments" as const, icon: CreditCard    },
+  { label: "Reviews",  value: "reviews"  as const, icon: Star          },
+  { label: "Matches",  value: "matches"  as const, icon: Sparkles      },
+  { label: "System",   value: "system"   as const, icon: ShieldAlert   },
 ];
 
-const groups = ["TODAY", "YESTERDAY", "THIS WEEK", "OLDER"];
+const GROUPS: NotificationGroup[] = ["TODAY", "YESTERDAY", "THIS WEEK", "OLDER"];
 
+const ICON_STYLE: Record<NotificationType, { icon: any; bg: string; color: string }> = {
+  orders:   { icon: ShoppingBag,   bg: "bg-blue-100",   color: "text-blue-700"   },
+  messages: { icon: MessageSquare, bg: "bg-sky-100",    color: "text-sky-700"    },
+  payments: { icon: CreditCard,    bg: "bg-purple-100", color: "text-purple-700" },
+  reviews:  { icon: Star,          bg: "bg-orange-100", color: "text-orange-600" },
+  matches:  { icon: Sparkles,      bg: "bg-violet-200", color: "text-violet-800" },
+  system:   { icon: ShieldAlert,   bg: "bg-red-100",    color: "text-red-600"    },
+};
+
+// ── Page ───────────────────────────────────────────────────────────────────────
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
-  const [activeFilter, setActiveFilter] = useState<"all" | NotificationType>(
-    "all"
-  );
+  const [activeFilter, setActiveFilter] = useState<"all" | NotificationType>("all");
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [olderLoading, setOlderLoading] = useState(false);
 
   useEffect(() => {
-    getNotifications().then((res) => {
-      setNotifications(res);
-      setLoading(false);
-    });
+    fetchNotifications()
+      .then(setNotifications)
+      .finally(() => setLoading(false));
   }, []);
 
-  const filteredNotifications = useMemo(() => {
-    if (activeFilter === "all") return notifications;
-    return notifications.filter((item) => item.type === activeFilter);
-  }, [notifications, activeFilter]);
+  const filtered = useMemo(() => {
+    const q = search.toLowerCase();
+    return notifications.filter((n) => {
+      const typeOk = activeFilter === "all" || n.type === activeFilter;
+      const textOk = !q || n.title.toLowerCase().includes(q) || n.description.toLowerCase().includes(q);
+      return typeOk && textOk;
+    });
+  }, [notifications, activeFilter, search]);
 
-  function getFilterCount(value: "all" | NotificationType) {
-    if (value === "all") return notifications.length;
-    return notifications.filter((item) => item.type === value).length;
-  }
+  const getCount = (v: "all" | NotificationType) =>
+    v === "all" ? notifications.length : notifications.filter((n) => n.type === v).length;
 
   async function handleMarkAllRead() {
-    await markAllNotificationsAsRead();
-
-    setNotifications((prev) =>
-      prev.map((item) => ({
-        ...item,
-        unread: false,
-      }))
-    );
+    await patchMarkAllRead();
+    setNotifications((prev) => prev.map((n) => ({ ...n, unread: false })));
   }
 
   async function handleCardClick(id: number) {
-    await markNotificationAsRead(id);
-
-    setNotifications((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              unread: false,
-            }
-          : item
-      )
-    );
+    await patchMarkRead(id);
+    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, unread: false } : n)));
   }
 
   async function handleLoadOlder() {
     setOlderLoading(true);
-    const older = await loadOlderNotifications();
-
+    const older = await fetchOlderNotifications();
     setNotifications((prev) => {
-      const existingIds = new Set(prev.map((item) => item.id));
-      const uniqueOlder = older.filter((item) => !existingIds.has(item.id));
-      return [...prev, ...uniqueOlder];
+      const ids = new Set(prev.map((n) => n.id));
+      return [...prev, ...older.filter((n) => !ids.has(n.id))];
     });
-
     setOlderLoading(false);
-  }
-
-  function handleAction(label: string, item: NotificationItem) {
-    if (label === "View Order") {
-      alert(`Opening order notification: ${item.title}`);
-    }
-
-    if (label === "Reply") {
-      alert(`Opening reply box for: ${item.title}`);
-    }
-
-    if (label === "Secure Account") {
-      alert("Redirecting to security settings...");
-    }
-
-    if (label === "Yes, it was me") {
-      alert("Login confirmed as safe.");
-    }
-
-    if (label === "Open") {
-      alert(`Opening: ${item.title}`);
-    }
   }
 
   if (loading) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-[#fff7ff]">
-        <p className="text-gray-500">Loading notifications...</p>
+        <p className="text-gray-400">Loading notifications…</p>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#fff7ff] text-[#211827]">
-      <header className="flex h-[64px] items-center justify-between border-b border-purple-100 bg-white px-6">
-        <h1 className="text-[24px] font-bold">MySite</h1>
+    <main className="min-h-screen bg-[#fff7ff] px-4 py-8">
+      <div className="mx-auto max-w-2xl">
 
-        <nav className="flex items-center gap-10 text-[14px]">
-          <button>Explore</button>
-          <button>Jobs</button>
-          <button>Messages</button>
-          <button>Support</button>
-        </nav>
-
-        <div className="flex items-center gap-5">
-          <button>Login</button>
-          <button className="rounded-md border border-purple-300 px-5 py-2 text-purple-700">
-            Post a Job
+        {/* Header */}
+        <div className="mb-5 flex items-center justify-between">
+          <h1 className="text-3xl font-bold text-[#211827]">Notifications</h1>
+          <button onClick={handleMarkAllRead} className="text-sm font-medium text-purple-700">
+            Mark all as read
           </button>
-
-          <div className="relative">
-            <Bell size={22} className="text-purple-700" />
-            <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-red-500" />
-          </div>
-
-          <HelpCircle size={21} className="text-gray-600" />
-          <UserCircle size={29} className="text-slate-700" />
         </div>
-      </header>
 
-      <section className="grid grid-cols-[300px_1fr] gap-9 px-6 py-9">
-        <aside>
-          <h2 className="mb-5 text-[18px] font-bold">Filters</h2>
+        {/* Search */}
+        <div className="relative mb-4">
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search notifications…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full rounded-lg border border-purple-100 bg-white py-2 pl-9 pr-4 text-sm outline-none focus:border-purple-400"
+          />
+        </div>
 
-          <div className="space-y-1">
-            {filters.map((filter) => {
-              const Icon = filter.icon;
-              const active = activeFilter === filter.value;
-              const count = getFilterCount(filter.value);
-
-              return (
-                <button
-                  key={filter.value}
-                  onClick={() => setActiveFilter(filter.value)}
-                  className={`flex w-full items-center justify-between px-4 py-3 text-left ${
-                    active
-                      ? "bg-purple-700 text-white"
-                      : "text-[#4b4553] hover:bg-purple-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-4">
-                    <Icon size={18} />
-                    {filter.label}
+        {/* Filter pills */}
+        <div className="mb-6 flex flex-wrap gap-2">
+          {FILTERS.map(({ label, value, icon: Icon }) => {
+            const active = activeFilter === value;
+            const count = getCount(value);
+            return (
+              <button
+                key={value}
+                onClick={() => setActiveFilter(value)}
+                className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition ${
+                  active
+                    ? "border-purple-700 bg-purple-700 text-white"
+                    : "border-purple-100 bg-white text-gray-600 hover:border-purple-300"
+                }`}
+              >
+                <Icon size={14} />
+                {label}
+                {count > 0 && (
+                  <span className={`rounded-full px-1.5 text-xs ${active ? "bg-purple-600 text-white" : "bg-gray-100 text-gray-500"}`}>
+                    {count}
                   </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
 
-                  {count > 0 && (
-                    <span
-                      className={`rounded-full px-2 py-0.5 text-xs ${
-                        active
-                          ? "bg-purple-600 text-white"
-                          : "bg-transparent text-[#4b4553]"
-                      }`}
-                    >
-                      {count}
-                    </span>
-                  )}
-                </button>
+        {/* Notification list */}
+        {filtered.length === 0 ? (
+          <div className="rounded-xl border border-purple-100 bg-white p-12 text-center">
+            <Bell className="mx-auto mb-3 text-gray-300" size={30} />
+            <p className="font-semibold text-gray-600">No notifications found</p>
+            <p className="mt-1 text-sm text-gray-400">Try a different filter or search term.</p>
+          </div>
+        ) : (
+          <div className="space-y-8">
+            {GROUPS.map((group) => {
+              const items = filtered.filter((n) => n.group === group);
+              if (!items.length) return null;
+              return (
+                <div key={group}>
+                  <p className="mb-3 text-xs font-semibold tracking-widest text-gray-400">{group}</p>
+                  <div className="space-y-3">
+                    {items.map((item) => (
+                      <NotificationCard key={item.id} item={item} onRead={handleCardClick} />
+                    ))}
+                  </div>
+                </div>
               );
             })}
           </div>
-        </aside>
+        )}
 
-        <section>
-          <div className="mb-7 flex items-center justify-between border-b border-purple-100 pb-5">
-            <h1 className="text-[34px] font-bold">Notifications</h1>
-
-            <button
-              onClick={handleMarkAllRead}
-              className="text-[14px] font-medium text-purple-700"
-            >
-              Mark all as read
-            </button>
-          </div>
-
-          {filteredNotifications.length === 0 ? (
-            <div className="rounded-xl border border-purple-200 bg-white p-12 text-center">
-              <h3 className="text-xl font-bold">No notifications found</h3>
-              <p className="mt-2 text-gray-600">
-                Try changing the selected filter.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-10">
-              {groups.map((group) => {
-                const groupItems = filteredNotifications.filter(
-                  (item) => item.group === group
-                );
-
-                if (groupItems.length === 0) return null;
-
-                return (
-                  <div key={group}>
-                    <h3 className="mb-4 text-xs font-semibold tracking-widest text-gray-600">
-                      {group}
-                    </h3>
-
-                    <div className="space-y-4">
-                      {groupItems.map((item) => (
-                        <NotificationCard
-                          key={item.id}
-                          item={item}
-                          onRead={handleCardClick}
-                          onAction={handleAction}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
-          <div className="mt-16 border-t border-purple-100 pt-7 text-center">
-            <button
-              onClick={handleLoadOlder}
-              disabled={olderLoading}
-              className="inline-flex items-center gap-3 border border-gray-500 bg-white px-7 py-4 text-[15px] disabled:opacity-60"
-            >
-              <RefreshCcw size={17} />
-              {olderLoading ? "Loading..." : "Load Older Notifications"}
-            </button>
-          </div>
-        </section>
-      </section>
-
-      <footer className="mt-10 flex h-[90px] items-center justify-between border-t bg-white px-6">
-        <div className="flex items-center gap-8">
-          <h2 className="text-[18px] font-bold">MySite</h2>
-          <p className="text-sm text-gray-600">
-            © 2024 MySite AI. Empowering the global workforce.
-          </p>
+        {/* Load older */}
+        <div className="mt-10 text-center">
+          <button
+            onClick={handleLoadOlder}
+            disabled={olderLoading}
+            className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-6 py-3 text-sm text-gray-500 disabled:opacity-50"
+          >
+            <RefreshCcw size={14} />
+            {olderLoading ? "Loading…" : "Load older notifications"}
+          </button>
         </div>
-
-        <div className="flex gap-8 text-sm text-gray-600">
-          <button>Terms</button>
-          <button>Privacy</button>
-          <button>Cookies</button>
-          <button>Security</button>
-          <button>Contact</button>
-        </div>
-      </footer>
+      </div>
     </main>
   );
 }
 
+// ── Card ───────────────────────────────────────────────────────────────────────
 function NotificationCard({
   item,
   onRead,
-  onAction,
 }: {
   item: NotificationItem;
   onRead: (id: number) => void;
-  onAction: (label: string, item: NotificationItem) => void;
 }) {
-  const { icon, bg, color } = getNotificationIcon(item.type);
+  const { icon: Icon, bg, color } = ICON_STYLE[item.type];
+
+  function handleAction(e: React.MouseEvent, label: string) {
+    e.stopPropagation();
+    // Wire to your router / modal here — e.g. router.push(`/orders/${item.id}`)
+    alert(`Action: ${label}`);
+  }
 
   return (
     <div
       onClick={() => onRead(item.id)}
-      className="relative cursor-pointer rounded-lg border border-purple-200 bg-white px-6 py-5 shadow-sm transition hover:shadow-md"
+      className="relative cursor-pointer rounded-xl border border-purple-100 bg-white px-5 py-4 shadow-sm transition hover:shadow-md"
     >
       {item.unread && (
-        <span className="absolute left-3 top-7 h-2 w-2 rounded-full bg-purple-700" />
+        <span className="absolute left-2.5 top-6 h-2 w-2 rounded-full bg-purple-700" />
       )}
-
-      <div className="flex gap-4">
-        <div
-          className={`flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full ${bg} ${color}`}
-        >
+      <div className="flex gap-3">
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${bg} ${color}`}>
           {item.avatar ? (
-            <img
-              src={item.avatar}
-              alt={item.title}
-              className="h-full w-full object-cover"
-            />
+            <img src={item.avatar} alt="" className="h-full w-full rounded-full object-cover" />
           ) : (
-            icon
+            <Icon size={17} />
           )}
         </div>
-
         <div className="flex-1">
-          <div className="flex justify-between gap-5">
-            <h3 className="text-[18px] font-bold">{item.title}</h3>
-            <span className="whitespace-nowrap text-xs text-gray-500">
-              {item.time}
-            </span>
+          <div className="flex items-start justify-between gap-4">
+            <p className="font-semibold leading-tight text-[#211827]">{item.title}</p>
+            <span className="whitespace-nowrap text-xs text-gray-400">{item.time}</span>
           </div>
-
-          <p className="mt-2 text-[14px] leading-6 text-gray-600">
-            {item.description}
-          </p>
-
+          <p className="mt-1 text-sm leading-relaxed text-gray-500">{item.description}</p>
           {item.actions && item.actions.length > 0 && (
-            <div className="mt-4 flex gap-5">
+            <div className="mt-3 flex gap-3">
               {item.actions.map((action) => (
                 <button
                   key={action.label}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onAction(action.label, item);
-                  }}
-                  className={`px-5 py-3 text-sm ${
+                  onClick={(e) => handleAction(e, action.label)}
+                  className={
                     action.type === "primary"
-                      ? "bg-purple-700 text-white"
+                      ? "rounded-md bg-purple-700 px-4 py-1.5 text-xs text-white"
                       : action.type === "danger"
-                      ? "text-red-600"
-                      : "border border-gray-500 bg-white text-gray-800"
-                  }`}
+                      ? "text-xs text-red-500"
+                      : "rounded-md border border-gray-200 px-4 py-1.5 text-xs text-gray-600"
+                  }
                 >
                   {action.label}
                 </button>
@@ -361,52 +339,4 @@ function NotificationCard({
       </div>
     </div>
   );
-}
-
-function getNotificationIcon(type: NotificationType) {
-  if (type === "orders") {
-    return {
-      icon: <ShoppingBag size={21} />,
-      bg: "bg-blue-600",
-      color: "text-white",
-    };
-  }
-
-  if (type === "messages") {
-    return {
-      icon: <MessageSquare size={21} />,
-      bg: "bg-blue-100",
-      color: "text-blue-700",
-    };
-  }
-
-  if (type === "payments") {
-    return {
-      icon: <CreditCard size={21} />,
-      bg: "bg-purple-100",
-      color: "text-purple-700",
-    };
-  }
-
-  if (type === "reviews") {
-    return {
-      icon: <Star size={21} />,
-      bg: "bg-orange-100",
-      color: "text-orange-700",
-    };
-  }
-
-  if (type === "matches") {
-    return {
-      icon: <Sparkles size={21} />,
-      bg: "bg-purple-300",
-      color: "text-purple-800",
-    };
-  }
-
-  return {
-    icon: <ShieldAlert size={21} />,
-    bg: "bg-red-100",
-    color: "text-red-600",
-  };
 }

@@ -203,7 +203,6 @@ useEffect(() => {
     <div className="bg-[#F9FAFB] min-h-screen">
 
       {/* ================= HEADER ================= */}
-        <div className="pt-[80px]">
 
 <div className="w-full bg-white h-[80px] flex items-center justify-center border-b">
   <div className="w-[1200px] text-sm text-[#6B7280] flex items-center gap-2">
@@ -222,14 +221,13 @@ useEffect(() => {
       Job Details
     </span>
 
-  </div>
 </div>
 </div>
       
       {/* ================= MAIN ================= */}
       <div className="w-full flex justify-center py-10">
        
-        <div className="w-[1200px] flex gap-6">
+        <div className=" flex gap-6">
 
           {/* ================= LEFT ================= */}
           <div className="w-[800px] flex flex-col gap-6">

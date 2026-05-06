@@ -348,19 +348,9 @@ export function AIInterviewClient() {
     <div className="min-h-screen pb-24" style={{ background: "#F5F3FF" }}>
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white border-b border-gray-200 px-7 py-3.5 flex items-center justify-between shadow-sm">
-        <div className="flex items-center gap-2.5">
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-lg"
-            style={{ background: "linear-gradient(135deg, #7C3AED, #8B5CF6)", fontFamily: "Sora, sans-serif" }}
-          >
-            M
-          </div>
-          <span className="font-semibold text-gray-800" style={{ fontFamily: "Sora, sans-serif" }}>
-            MySite
-          </span>
-        </div>
 
-        <h1 className="font-bold text-xl text-gray-800" style={{ fontFamily: "Sora, sans-serif" }}>
+
+        <h1 className="font-bold text-xl text-gray-800 " style={{ fontFamily: "Sora, sans-serif" }}>
           AI Skill Verification Interview
         </h1>
 

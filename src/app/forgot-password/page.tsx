@@ -2,9 +2,10 @@
 
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+
 import { toast } from "sonner";
+import { Input } from "../../../components/ui/input";
+import { Button } from "../../../components/ui/button";
 
 interface EmailForm { email: string }
 interface CodeForm { code: string }

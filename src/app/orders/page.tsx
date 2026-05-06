@@ -21,80 +21,6 @@ import { getOrders, Order, OrderStatus,  } from "../../lib/orders-api";
 
 const tabs = ["All Orders", "Active", "Late", "Delivered", "Completed", "Cancelled"];
 
-function Sidebar() {
-  return (
-    <aside className="fixed left-0 top-0 z-20 hidden h-screen w-[280px] border-r border-violet-200 bg-white lg:block">
-      <div className="flex h-[70px] items-center border-b border-violet-200 px-7">
-        <Link href="/" className="text-[24px] font-bold text-violet-700">
-          ProLance
-        </Link>
-      </div>
-
-      <div className="p-5">
-        <div className="mb-10 flex items-center gap-4">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full border text-[10px] text-blue-500">
-            ProLance
-          </div>
-          <div>
-            <p className="text-[16px] font-medium">Workspace</p>
-            <p className="text-[14px] text-slate-600">Professional Plan</p>
-          </div>
-        </div>
-
-        <nav className="space-y-3">
-          <Link href="/" className="flex items-center gap-4 rounded-xl px-5 py-4 text-slate-700">
-            <Grid2X2 className="h-5 w-5" /> Dashboard
-          </Link>
-
-          <Link href="/orders" className="flex items-center gap-4 rounded-xl bg-violet-100 px-5 py-4 font-semibold text-violet-700">
-            <ShoppingCart className="h-5 w-5" /> Orders
-          </Link>
-
-          <Link href="/messages" className="flex items-center gap-4 rounded-xl px-5 py-4 text-slate-700">
-            <Mail className="h-5 w-5" /> Messages
-          </Link>
-
-          <Link href="/gigs/modern-logo-brand/analytics" className="flex items-center gap-4 rounded-xl px-5 py-4 text-slate-700">
-            <BarChart3 className="h-5 w-5" /> Analytics
-          </Link>
-
-          <Link href="/settings" className="flex items-center gap-4 rounded-xl px-5 py-4 text-slate-700">
-            <Settings className="h-5 w-5" /> Settings
-          </Link>
-        </nav>
-      </div>
-
-      <div className="absolute bottom-5 left-5 right-5">
-        <Link href="/gigs/create" className="block rounded-xl bg-gradient-to-r from-violet-800 to-violet-500 py-4 text-center text-white">
-          Post a Gig
-        </Link>
-      </div>
-    </aside>
-  );
-}
-
-function Topbar() {
-  return (
-    <header className="fixed left-0 right-0 top-0 z-10 h-[70px] border-b border-violet-200 bg-white lg:left-[280px]">
-      <div className="flex h-full items-center justify-between px-8">
-        <div className="hidden gap-14 text-[16px] text-slate-700 md:flex">
-          <Link href="#">How It Works</Link>
-          <Link href="/gigs">Browse Talent</Link>
-          <Link href="#">Find Work</Link>
-        </div>
-
-        <div className="ml-auto flex items-center gap-7 text-slate-700">
-          <Bell className="h-5 w-5" />
-          <MessageSquare className="h-5 w-5" />
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-700 text-sm text-white">
-            ?
-          </span>
-          <img src="https://i.pravatar.cc/100?img=5" className="h-9 w-9 rounded-full" />
-        </div>
-      </div>
-    </header>
-  );
-}
 
 function statusClass(status: OrderStatus) {
   if (status === "In Progress") return "bg-violet-100 text-slate-900";
@@ -134,11 +60,9 @@ export default function OrdersPage() {
 
   return (
     <main className="min-h-screen bg-[#fcf5ff]">
-      <Sidebar />
-      <Topbar />
 
-      <section className="px-6 pt-[105px] lg:ml-[280px] lg:px-12">
-        <div className="mx-auto max-w-[1050px]">
+      <section className="px-6 ">
+        <div className="mx-auto w-full">
           <h1 className="text-[38px] font-bold">My Orders</h1>
           <p className="mt-2 text-[19px] text-slate-700">
             Manage and track your ongoing and completed projects.

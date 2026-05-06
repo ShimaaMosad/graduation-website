@@ -380,58 +380,13 @@ export default function FinancialsPage() {
       {/* Toast */}
       {toast && <Toast msg={toast.msg} isError={toast.isError} />}
 
-      {/* ── Sidebar ────────────────────────────────────────────── */}
-      <aside className="w-44 bg-[#1a1d2e] flex flex-col py-4 px-3 flex-shrink-0">
-        <div className="flex items-center gap-2 mb-8 px-1">
-          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">M</div>
-          <div>
-            <div className="text-white font-bold text-sm leading-tight">MySite</div>
-            <div className="text-gray-400 text-[9px] uppercase tracking-wider">Admin Console</div>
-          </div>
-        </div>
 
-        <nav className="flex-1 space-y-1">
-          {navItems.map(({ label, icon: Icon }) => (
-<button
-  key={label}
-  onClick={() => {
-    setActiveNav(label);
-    router.push(`/${label.toLowerCase().replace(" ", "")}`);
-    showToast(`Navigated to ${label}`);
-  }}              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-all ${activeNav === label ? "bg-indigo-600 text-white" : "text-gray-400 hover:bg-white/10 hover:text-white"}`}>
-              <Icon size={14} />{label}
-            </button>
-          ))}
-        </nav>
-
-        <div className="mt-4 bg-indigo-900/40 rounded-lg p-3 border border-indigo-800/30">
-          <div className="text-indigo-300 text-[10px] mb-1 font-semibold">Upgrade Plan</div>
-          <div className="text-gray-400 text-[10px] mb-2">Get advanced reporting tools</div>
-          <button onClick={() => setShowUpgrade(true)} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] py-1 rounded transition-colors">
-            Upgrade
-          </button>
-        </div>
-
-        <div className="mt-3 space-y-1">
-          <button onClick={() => showToast("Opening Help Center…")}
-            className="w-full flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white text-xs rounded-lg hover:bg-white/10">
-            <HelpCircle size={13} />Help Center
-          </button>
-          <button onClick={() => showToast("Logging out…")}
-            className="w-full flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white text-xs rounded-lg hover:bg-white/10">
-            <LogOut size={13} />Logout
-          </button>
-        </div>
-      </aside>
 
       {/* ── Main ───────────────────────────────────────────────── */}
       <main className="flex-1 overflow-y-auto relative">
 
         {/* Header */}
         <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between z-10">
-          <h1 className="text-xl font-bold text-gray-800">Transaction Monitoring</h1>
-          <div className="flex items-center gap-3">
-
             {/* Search */}
             <div className="relative">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -449,6 +404,9 @@ export default function FinancialsPage() {
               )}
             </div>
 
+          <div className="flex items-center gap-3">
+
+          
             {/* Calendar */}
             <button onClick={(e) => { e.stopPropagation(); setShowCalendar(true); }}
               className={`p-2 rounded-lg transition-colors ${dateRange ? "bg-indigo-100 text-indigo-600" : "text-gray-500 hover:bg-gray-100"}`}
@@ -470,21 +428,7 @@ export default function FinancialsPage() {
               {showBell && <NotificationsPanel onClose={() => setShowBell(false)} />}
             </div>
 
-            {/* Refresh / Settings */}
-            <button onClick={() => fetchData(true)} disabled={refreshing}
-              className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg disabled:opacity-50"
-              title="Refresh data">
-              <RefreshCw size={16} className={refreshing ? "animate-spin" : ""} />
-            </button>
-            <button onClick={() => showToast("Settings panel coming soon")}
-              className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg">
-              <Settings size={16} />
-            </button>
-
-            <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center text-white text-xs font-bold cursor-pointer hover:bg-gray-700"
-              title="Admin User" onClick={() => showToast("Profile settings coming soon")}>
-              AU
-            </div>
+           
           </div>
         </div>
 

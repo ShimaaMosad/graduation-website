@@ -16,7 +16,7 @@ import {
   SearchTab,
   GigItem,
   FreelancerItem,
-} from "@/src/lib/searchApi";
+} from"../../lib/searchApi";
 
 const tabs: SearchTab[] = ["All", "Gigs", "Freelancers", "Jobs"];
 
@@ -94,40 +94,10 @@ export default function SearchPage() {
 
   return (
     <main className="min-h-screen bg-[#f7f7fa] text-[#17151f]">
-      <header className="flex h-[72px] items-center justify-between border-b border-gray-200 bg-white px-8">
-        <div className="text-[26px] font-black">MySite</div>
+     
 
-        <div className="flex h-[44px] w-[430px] items-center gap-3 rounded-full border border-purple-200 bg-[#f2eaf8] px-4">
-          <Search size={21} className="text-gray-600" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="w-full bg-transparent text-[16px] outline-none"
-          />
-        </div>
-
-        <nav className="flex items-center gap-8 text-[15px]">
-          <button className="border-b-2 border-purple-700 pb-2 text-purple-700">
-            Explore
-          </button>
-          <button>Jobs</button>
-          <button>Messages</button>
-          <button>Support</button>
-        </nav>
-
-        <div className="flex items-center gap-5">
-          <button className="text-purple-700">Login</button>
-          <button className="rounded-lg bg-purple-700 px-5 py-3 font-semibold text-white">
-            Post a Job
-          </button>
-          <Bell className="text-purple-700" size={22} />
-          <HelpCircle className="text-purple-700" size={22} />
-          <UserCircle className="text-purple-700" size={25} />
-        </div>
-      </header>
-
-      <section className="px-8 py-10">
-        <h1 className="text-[40px] font-bold">
+      <section className="px-8 py-2">
+        <h1 className="text-[20px] font-bold">
           {data.totalResults.toLocaleString()} results for "{query}"
         </h1>
 

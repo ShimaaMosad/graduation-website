@@ -22,71 +22,8 @@ import {
 import { useParams } from "next/navigation";
 import { OrderDetails , getOrderById } from "../../../lib/orders-api";
 
-function Sidebar() {
-  return (
-    <aside className="fixed left-0 top-0 z-20 hidden h-screen w-[220px] border-r border-violet-200 bg-white lg:block">
-      <div className="flex h-[54px] items-center border-b border-violet-200 px-5">
-        <Link href="/" className="text-[20px] font-bold text-violet-700">
-          ProLance
-        </Link>
-      </div>
 
-      <div className="p-3">
-        <div className="mb-7 rounded-lg bg-violet-50 p-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-700 text-white">
-            P
-          </div>
-          <p className="mt-2 text-[14px] font-semibold">Workspace</p>
-          <p className="text-[12px]">Professional Plan</p>
-        </div>
 
-        <nav className="space-y-2 text-[14px]">
-          <Link href="/" className="flex items-center gap-3 rounded-lg px-3 py-3">
-            <Grid2X2 className="h-4 w-4" /> Dashboard
-          </Link>
-          <Link href="/orders" className="flex items-center gap-3 rounded-lg bg-violet-100 px-3 py-3 text-violet-700">
-            <ShoppingCart className="h-4 w-4" /> Orders
-          </Link>
-          <Link href="/messages" className="flex items-center gap-3 rounded-lg px-3 py-3">
-            <Mail className="h-4 w-4" /> Messages
-          </Link>
-          <Link href="/gigs/modern-logo-brand/analytics" className="flex items-center gap-3 rounded-lg px-3 py-3">
-            <BarChart3 className="h-4 w-4" /> Analytics
-          </Link>
-          <Link href="/settings" className="flex items-center gap-3 rounded-lg px-3 py-3">
-            <Settings className="h-4 w-4" /> Settings
-          </Link>
-        </nav>
-      </div>
-
-      <div className="absolute bottom-4 left-3 right-3">
-        <Link href="/gigs/create" className="block rounded-lg bg-gradient-to-r from-violet-800 to-violet-500 py-3 text-center text-white">
-          Post a Gig
-        </Link>
-      </div>
-    </aside>
-  );
-}
-
-function Topbar() {
-  return (
-    <header className="fixed left-0 right-0 top-0 z-10 h-[54px] border-b border-violet-200 bg-white lg:left-[220px]">
-      <div className="flex h-full items-center justify-between px-5">
-        <div className="flex h-9 w-[380px] items-center gap-3 rounded-lg border border-violet-200 px-3">
-          <span className="text-slate-500">⌕</span>
-          <input placeholder="Search..." className="w-full bg-transparent text-sm outline-none" />
-        </div>
-
-        <div className="flex items-center gap-6">
-          <Bell className="h-4 w-4" />
-          <MessageSquare className="h-4 w-4" />
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-700 text-xs text-white">?</span>
-          <img src="https://i.pravatar.cc/100?img=5" className="h-8 w-8 rounded-full" />
-        </div>
-      </div>
-    </header>
-  );
-}
 
 export default function OrderDetailsPage() {
   const params = useParams();
@@ -113,11 +50,10 @@ export default function OrderDetailsPage() {
 
   return (
     <main className="min-h-screen bg-[#f5efff]">
-      <Sidebar />
-      <Topbar />
+    
 
-      <section className="px-5 pt-[72px] lg:ml-[220px]">
-        <div className="mx-auto max-w-[1000px]">
+      <section className="px-5 ">
+        <div className="mx-auto w-full">
           <div className="mb-3 text-[14px] text-slate-600">
             <Link href="/orders">← Back to Orders</Link>
             <span className="mx-2">/</span>

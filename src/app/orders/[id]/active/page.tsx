@@ -25,60 +25,6 @@ type ActionMessage = {
   text: string;
 };
 
-function Sidebar({ orderId }: { orderId: string }) {
-  return (
-    <aside className="fixed left-0 top-0 hidden h-screen w-[265px] border-r border-violet-200 bg-white lg:block">
-      <div className="flex h-[66px] items-center border-b border-violet-100 px-6">
-        <Link href="/" className="text-[22px] font-bold text-violet-700">
-          FreelanceFlow
-        </Link>
-      </div>
-
-      <div className="border-b border-violet-100 px-6 py-9">
-        <h2 className="text-[18px] font-bold">Freelancer Hub</h2>
-        <p className="mt-2 text-[14px] text-slate-600">Manage your productivity</p>
-        <button className="mt-5 w-full rounded-lg bg-violet-700 py-3 text-white">
-          Create New Order
-        </button>
-      </div>
-
-      <nav className="space-y-3 px-4 py-7 text-[15px]">
-        <Link href="/" className="flex items-center gap-4 rounded-xl px-4 py-3 text-slate-700">
-          <Grid2X2 className="h-5 w-5" /> Dashboard
-        </Link>
-
-        <Link href={`/orders/${orderId}/active`} className="flex items-center gap-4 rounded-xl bg-violet-100 px-4 py-3 font-medium text-violet-700">
-          <Briefcase className="h-5 w-5" /> Active Orders
-        </Link>
-
-        <Link href={`/orders/${orderId}/revision`} className="flex items-center gap-4 rounded-xl px-4 py-3 text-slate-700">
-          <ImageIcon className="h-5 w-5" /> Revision Queue
-        </Link>
-
-        <Link href="#" className="flex items-center gap-4 rounded-xl px-4 py-3 text-slate-700">
-          <Wallet className="h-5 w-5" /> Financials
-        </Link>
-
-        <Link href="#" className="flex items-center gap-4 rounded-xl px-4 py-3 text-slate-700">
-          <User className="h-5 w-5" /> Account
-        </Link>
-      </nav>
-    </aside>
-  );
-}
-
-function Topbar() {
-  return (
-    <header className="fixed left-0 right-0 top-0 z-20 h-[66px] border-b border-violet-100 bg-white lg:left-[265px]">
-      <div className="flex h-full items-center justify-end gap-8 px-8">
-        <Bell className="h-5 w-5 text-slate-600" />
-        <MessageSquare className="h-5 w-5 text-slate-600" />
-        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-600 text-xs text-white">?</span>
-        <img src="https://i.pravatar.cc/100?img=12" className="h-9 w-9 rounded-full" />
-      </div>
-    </header>
-  );
-}
 
 export default function ActiveOrderPage() {
   const params = useParams();
@@ -124,11 +70,9 @@ export default function ActiveOrderPage() {
 
   return (
     <main className="min-h-screen bg-[#fcf4ff]">
-      <Sidebar orderId={id} />
-      <Topbar />
 
-      <section className="px-5 pt-[95px] lg:ml-[265px]">
-        <div className="mx-auto max-w-[1030px]">
+      <section className="px-5 ">
+        <div className="mx-auto w-full">
           <div className="mb-7 flex items-center gap-3 text-[15px] text-slate-700">
             <Link href="/orders">My Orders</Link>
             <ChevronRight className="h-4 w-4" />

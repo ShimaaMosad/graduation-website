@@ -1,5 +1,5 @@
-import { getJobById } from "@/src/lib/api";
 import Link from "next/link";
+import { getJobById } from "../../../lib/api";
 
 type JobDetailsPageProps = {
   params: {

@@ -20,7 +20,8 @@ import {
   ChevronRight,
   Clock,
 } from "lucide-react";
-import { Conversation, getConversations, markAllMessagesRead } from "@/src/lib/messages-api";
+import { Conversation, getConversations, markAllMessagesRead } from "../../lib/messages-api";
+ "@/src/lib/messages-api";
 
 
 type FilterType = "All" | "Unread" | "Active Orders" | "Archived";
@@ -163,117 +164,10 @@ export default function MessagesPage() {
 
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50 font-sans">
-      <aside className="w-52 flex-shrink-0 border-r border-gray-100 bg-white">
-        <div className="px-5 py-5">
-          <Link href="/" className="text-2xl font-bold text-violet-600">
-            MySite
-          </Link>
-        </div>
-
-        <div className="flex items-center gap-3 px-5 pb-6">
-          <img
-            src="https://i.pravatar.cc/100?img=13"
-            className="h-9 w-9 rounded-full"
-            alt="profile"
-          />
-
-          <div>
-            <p className="text-sm font-semibold text-gray-900">Alex Johnson</p>
-            <p className="text-xs text-gray-500">Professional Seller</p>
-          </div>
-        </div>
-
-        <nav className="flex-1 px-3">
-          {navItems.map(({ icon: Icon, label, badge, href }) => {
-            const isActive = pathname === href;
-
-            return (
-              <Link
-                key={label}
-                href={href}
-                className={`mb-0.5 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-violet-50 text-violet-700"
-                    : "text-gray-600 hover:bg-gray-50"
-                }`}
-              >
-                <Icon
-                  size={18}
-                  className={isActive ? "text-violet-600" : "text-gray-500"}
-                />
-
-                <span className="flex-1 text-left">{label}</span>
-
-                {!!badge && badge > 0 && (
-                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-violet-600 px-1 text-xs font-bold text-white">
-                    {badge}
-                  </span>
-                )}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="px-3 pb-6">
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50">
-            <HelpCircle size={18} />
-            Help & Support
-          </button>
-        </div>
-      </aside>
+   
 
       <main className="flex-1 overflow-y-auto">
-        <header className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-100 bg-white px-6 py-3">
-          <div className="flex items-center gap-8">
-            <div className="relative">
-              <Search
-                size={15}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-              />
-
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-48 rounded-full bg-gray-100 py-2 pl-9 pr-4 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
-              />
-            </div>
-
-            <nav className="flex items-center gap-6 text-sm font-medium text-gray-600">
-              <Link href="/gigs" className="hover:text-gray-900">
-                Browse
-              </Link>
-              <Link href="#" className="hover:text-gray-900">
-                Explore
-              </Link>
-              <Link href="#" className="hover:text-gray-900">
-                Community
-              </Link>
-            </nav>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Bell size={20} className="text-gray-500" />
-            <Mail size={20} className="text-gray-500" />
-
-            <button
-              onClick={() => router.push("/freelancer/create-gig")}
-              className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-700"
-            >
-              Post a Gig
-            </button>
-
-            <Link href="/profile" className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-700">Profile</span>
-              <img
-                src="https://i.pravatar.cc/100?img=13"
-                className="h-8 w-8 rounded-full"
-                alt="profile"
-              />
-            </Link>
-          </div>
-        </header>
+   
 
         <div className="px-8 py-6">
           {notice && (

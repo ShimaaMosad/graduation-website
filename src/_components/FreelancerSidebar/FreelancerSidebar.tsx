@@ -11,14 +11,15 @@ import {
   Search,
   ClipboardList,
   Wallet,
-  Users,
   UserCircle,
   Settings,
   LogOut,
   TrendingUp,
+  BarChart3,
+  FileText,
+  Star,
 } from "lucide-react";
 
-// ─── Types ──────────────────────────────────────────────────
 interface NavItem {
   label: string;
   href: string;
@@ -26,29 +27,28 @@ interface NavItem {
   badge?: number | string;
 }
 
-// ─── Nav Items ──────────────────────────────────────────────
 const navItems: NavItem[] = [
-  { label: "Dashboard",  href: "/freelancer/dashboard",  icon: <LayoutDashboard size={18} /> },
-  { label: "Make Gig",   href: "/freelancer/make-gig",   icon: <Zap size={18} /> },
-  { label: "My Gigs",    href: "/freelancer/my-gigs",    icon: <BookCopy size={18} />,      badge: 8  },
-  { label: "Messages",   href: "/freelancer/messages",   icon: <Mail size={18} />,          badge: 5  },
-  { label: "Search",     href: "/freelancer/search",     icon: <Search size={18} /> },
-  { label: "Orders",     href: "/freelancer/orders",     icon: <ClipboardList size={18} />, badge: 15 },
-  { label: "Payment",    href: "/freelancer/payment",    icon: <Wallet size={18} /> },
-  { label: "Teams",      href: "/freelancer/teams",      icon: <Users size={18} />,         badge: "New" },
-  { label: "Profile",    href: "/freelancer/profile",    icon: <UserCircle size={18} /> },
-  { label: "Settings",   href: "/freelancer/settings",   icon: <Settings size={18} /> },
+  { label: "Projects", href: "/projects", icon: <LayoutDashboard size={18} /> },
+  { label: "Analytics", href: "/analytics", icon: <BarChart3 size={18} /> },
+  { label: "Make CV", href: "/makecv", icon: <FileText size={18} /> },
+  { label: "My Gigs", href: "/my-gigs", icon: <BookCopy size={18} />, badge: 8 },
+  { label: "Messages", href: "/messages", icon: <Mail size={18} />, badge: 5 },
+  { label: "Search", href: "/search", icon: <Search size={18} /> },
+  { label: "Orders", href: "/orders", icon: <ClipboardList size={18} />, badge: 15 },
+  { label: "Earnings", href: "/earnings", icon: <Wallet size={18} /> },
+  { label: "Financials", href: "/financials", icon: <TrendingUp size={18} /> },
+  { label: "Submit Proposal", href: "/submitproposal", icon: <Zap size={18} /> },
+  { label: "Reviews", href: "/reviews", icon: <Star size={18} /> },
+  { label: "Profile", href: "/profile", icon: <UserCircle size={18} /> },
+  { label: "Settings", href: "/settings", icon: <Settings size={18} /> },
 ];
 
-// ─── Badge Component ────────────────────────────────────────
 function Badge({ value }: { value: number | string }) {
   const isNew = value === "New";
   return (
     <span
       className={`ml-auto text-xs font-semibold px-2 py-0.5 rounded-full ${
-        isNew
-          ? "bg-blue-600 text-white"
-          : "bg-violet-600 text-white"
+        isNew ? "bg-blue-600 text-white" : "bg-violet-600 text-white"
       }`}
     >
       {value}
@@ -56,20 +56,23 @@ function Badge({ value }: { value: number | string }) {
   );
 }
 
-// ─── Main Component ─────────────────────────────────────────
 export default function FreelancerSidebar() {
   const pathname = usePathname();
   const { data: session } = useSession();
 
   const user = session?.user as any;
-  const name  = user?.name  ?? "Ahmed Saleh";
-  const title = user?.title ?? "Expert UI Designer";
-  const image = user?.image ?? null;
+  const name: string = user?.name ?? "Ahmed Saleh";
+  const title: string = user?.title ?? "Expert UI Designer";
+  const image: string | null = user?.image ?? null;
+
+  async function handleLogout() {
+    await signOut({ redirect: false });
+    window.location.href = "/login";
+  }
 
   return (
-    <aside className="w-64 min-h-screen bg-white border-r border-gray-100 flex flex-col shadow-sm">
-
-      {/* ── Header ── */}
+    <aside className="w-64 h-screen sticky top-0 bg-white border-r border-gray-100 flex flex-col shadow-sm shrink-0">
+      {/* Brand header */}
       <div className="px-6 pt-6 pb-4 border-b border-gray-100">
         <p className="text-xs font-bold tracking-widest text-violet-600 uppercase">
           Freelancer Portal
@@ -79,7 +82,7 @@ export default function FreelancerSidebar() {
         </p>
       </div>
 
-      {/* ── Profile ── */}
+      {/* Profile card */}
       <div className="flex flex-col items-center px-6 py-5 border-b border-gray-100">
         <div className="relative">
           {image ? (
@@ -93,7 +96,6 @@ export default function FreelancerSidebar() {
               {name.charAt(0)}
             </div>
           )}
-          {/* Online dot */}
           <span className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
         </div>
 
@@ -102,7 +104,7 @@ export default function FreelancerSidebar() {
 
         <div className="flex gap-2 mt-3">
           <span className="flex items-center gap-1 text-[10px] font-medium text-violet-600 bg-violet-50 border border-violet-200 rounded-full px-2 py-0.5">
-            <span className="text-violet-500">✦</span> AI Verified
+            ✦ AI Verified
           </span>
           <span className="flex items-center gap-1 text-[10px] font-medium text-amber-600 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
             ☆ Top Seller
@@ -110,11 +112,12 @@ export default function FreelancerSidebar() {
         </div>
       </div>
 
-      {/* ── Nav ── */}
+      {/* Nav */}
       <nav className="flex-1 px-3 py-4 overflow-y-auto">
         <ul className="space-y-0.5">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive =
+              pathname === item.href || pathname.startsWith(item.href + "/");
             return (
               <li key={item.href}>
                 <Link
@@ -137,7 +140,7 @@ export default function FreelancerSidebar() {
         </ul>
       </nav>
 
-      {/* ── Earnings Card ── */}
+      {/* Earnings widget */}
       <div className="mx-3 mb-3 bg-gradient-to-br from-violet-50 to-purple-50 border border-violet-100 rounded-xl p-4">
         <div className="flex items-center justify-between mb-2">
           <p className="text-[10px] font-bold tracking-widest text-gray-500 uppercase">
@@ -161,15 +164,18 @@ export default function FreelancerSidebar() {
             />
           </div>
         </div>
-        <button className="mt-3 w-full text-xs font-semibold text-violet-600 border border-violet-300 rounded-lg py-2 hover:bg-violet-600 hover:text-white transition-all">
+        <Link
+          href="/earnings"
+          className="mt-3 block w-full text-center text-xs font-semibold text-violet-600 border border-violet-300 rounded-lg py-2 hover:bg-violet-600 hover:text-white transition-all"
+        >
           View Earnings
-        </button>
+        </Link>
       </div>
 
-      {/* ── Sign Out ── */}
+      {/* Sign out */}
       <div className="px-3 pb-4">
         <button
-          onClick={() => signOut({ callbackUrl: "/login" })}
+          onClick={handleLogout}
           className="flex items-center gap-2 px-3 py-2.5 w-full text-sm font-medium text-red-500 hover:bg-red-50 rounded-lg transition-all"
         >
           <LogOut size={16} />
